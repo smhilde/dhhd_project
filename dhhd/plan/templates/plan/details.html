@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} <!-- New line -->
+
+<html>
+
+	<head>
+		<title>Don Hildebrand Home Designs</title>
+	</head>
+	
+	<body>
+		{% if plan_object %}
+			<h1>Plan {{ plan_object.number }}</h1>
+			This is the detail page for plan number {{ plan_object.number }}.<br />
+			This is the page that you will see if a person clicks on a plan from the search.<br />
+			{% static "plan/" as img_path %}
+			{# <img src="{{ img_path }}{{ plan_object.elevation_file }}" alt="plan elevation" /> #}
+			<img src="{{ img_path }}{{ plan_object.floorplan_file }}" alt="plan elevation" />
+			{% if plan_features %}
+				<ul>
+					{% for feature in plan_features %}
+						<li>{{ feature }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% else %}
+			<strong>Plan {{ plan_number }} does not exist.</strong><br />
+		{% endif %}
+		<a href="/plan/">Plans</a><br />
+		<a href="/about/">About</a><br />
+		<a href="/">Home</a><br />
+	</body>
+	
+</html>

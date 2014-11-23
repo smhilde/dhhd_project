@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} <!-- New line -->
+
+<html>
+
+	<head>
+		<title>Don Hildebrand Home Designs</title>
+	</head>
+	
+	<body>
+		<h1>Welcome.</h1>
+		You've found the home page of Don Hildebrand Home Designs.<br />
+		<a href="/plan/">Plans</a><br />
+		<a href="/about/">About</a><br />
+		{% if popular_plans %}
+			<h2>Popular Plans</h2>
+			<ul>
+				{% for plan in popular_plans %}
+				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>There are no plans present.</strong>
+		{% endif %}
+		<img src="{% static "images/index_image_oct04.jpg" %}" alt="home page image" />
+	</body>
+	
+</html>
