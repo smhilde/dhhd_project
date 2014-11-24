@@ -1,0 +1,13 @@
+{% extends "plan/index.html" %}
+
+{% block search_results %}
+	{% if plan_list %}
+		<ul>
+		{% for plan in plan_list %}
+				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+		{% endfor %}
+		</ul>
+		{% else %}
+			<strong>No plans match your search. Please broaden your search criteria and try again.</strong><br />
+	{% endif %}
+{% endblock %}

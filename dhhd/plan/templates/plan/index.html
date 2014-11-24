@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{% load staticfiles %} <!-- New line -->
+{% load staticfiles %}
 
 <html>
 
@@ -10,10 +10,17 @@
 	
 	<body>
 		<h1>Plans</h1>
-		This is where the search for plans will live. <strong>{{ boldmessage }}</strong><br />
+		<form id="plan_form" action='/plan/' method="post">
+			{% csrf_token %}
+			<table>
+				{{ form.as_table }}
+			</table>
+			<input type="submit" value="Go" />
+		</form>
+		{% block search_results %}
+		{% endblock %}
 		<a href="/">Home</a><br />
 		<a href="/about/">About</a><br />
-		<img src="{% static "plan/1586_250.jpg" %}" alt="Plan 1586" />
 	</body>
 	
 </html>

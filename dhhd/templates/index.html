@@ -17,7 +17,7 @@
 			<h2>Popular Plans</h2>
 			<ul>
 				{% for plan in popular_plans %}
-				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+					<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
 				{% endfor %}
 			</ul>
 		{% else %}
