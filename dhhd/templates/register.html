@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+		<h1>Register with Don Hildebrand Home Designs</h1>
+		
+		{% if registered %}
+			<strong>Thank you for registering!</strong>
+			<a href="/">Return Home</a><br />
+		{% else %}
+			<strong>Register here!</strong>
+		
+			<form id="user_form" method="post" action="plan/register/">
+				{% csrf_token %}
+				<table>
+				{{ user_form.as_table }}
+				</table>
+				<br />
+				<input type="submit" name="submit" value="Register" />
+			</form>
+		{% endif %}
+{% endblock body %}

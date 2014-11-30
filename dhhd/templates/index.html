@@ -1,29 +1,57 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-{% load staticfiles %} <!-- New line -->
+{% load staticfiles %}
 
-<html>
+{% block script %}
+		<script>
+		// This is a sample jquery script to bold links as they are moused over -- just for practice.
+			$(document).ready(function() {
+				$('li').on('mouseover', 'a', function() {
+					$(this).css('font-weight', 'bold');
+				});
+				$('li').on('mouseleave', 'a', function() {
+					$(this).css('font-weight', 'normal');
+				});
+			});
+		</script>
+{% endblock script %}
 
-	<head>
-		<title>Don Hildebrand Home Designs</title>
-	</head>
-	
-	<body>
+{% block body %}
+	{% if user.is_authenticated %}
+		{% if user.first_name %}
+			<h1>Welcome {{ user.first_name }}.</h1>
+		{% else %}
+			<h1>Welcome {{ user.username }}.</h1>
+		{% endif %}
+	{% else %}
 		<h1>Welcome.</h1>
-		You've found the home page of Don Hildebrand Home Designs.<br />
-		<a href="/plan/">Plans</a><br />
-		<a href="/about/">About</a><br />
+	{% endif %}
+	You've found the home page of Don Hildebrand Home Designs.<br />
+	<div class="grid-50">
 		{% if popular_plans %}
-			<h2>Popular Plans</h2>
+			<h2>Most Viewed Plans</h2>
 			<ul>
-				{% for plan in popular_plans %}
-					<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
-				{% endfor %}
+			{% for plan in popular_plans %}
+				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+			{% endfor %}
 			</ul>
 		{% else %}
 			<strong>There are no plans present.</strong>
 		{% endif %}
-		<img src="{% static "images/index_image_oct04.jpg" %}" alt="home page image" />
-	</body>
-	
-</html>
+	</div>
+	<div class="grid-50">
+		{% if recent_plans %}
+			<h2>Recently Added Plans</h2>
+			<ul>
+			{% for plan in recent_plans %}
+				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<strong>There are no plans present.</strong>
+		{% endif %}
+	</div>
+	<div class="grid-100">
+		<img src="{% static 'images/index_image_oct04.jpg' %}" alt="home page image" />
+	</div>
+{% endblock body %}

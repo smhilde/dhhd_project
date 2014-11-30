@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 class Plan(models.Model):
-	number = models.PositiveIntegerField('Plan Number', unique=True)
-	title = models.CharField(max_length=1000, null=True, unique=True)
+	number = models.CharField('Plan Number', max_length=50, unique=True)
+	title = models.CharField(max_length=100, null=True, unique=True)
 	area = models.PositiveIntegerField('Square Feet')
 	bed = models.FloatField('Bedrooms')
 	bath = models.FloatField('Bathrooms')
@@ -32,13 +33,15 @@ class Customer(models.Model):
 	def __str__(self):
 		return self.name
 
-class User(models.Model):
-	usrid = models.CharField(max_length=100, unique=True)
-	usrpwd = models.CharField(max_length=100)
-	plan = models.ManyToManyField(Plan)
+class UserProfile(models.Model):
+	# This line is required. Links UserProfile to a User model instance.
+	user = models.OneToOneField(User)
+	
+	# The additional attribute that I want is to allow users to associate with plans
+	fav_plans = models.ManyToManyField(Plan, blank=True)
 	
 	def __str__(self):
-		return self.usrid
+		return self.user.username
 
 class Location(models.Model):
 	street_number = models.IntegerField()
@@ -56,4 +59,4 @@ class SpecialFeature(models.Model):
 	feature = models.CharField(max_length=100)
 	
 	def __str__(self):
-		return '{}: {}'.format(self.room, self.feature)
+		return '{}'.format(self.feature)

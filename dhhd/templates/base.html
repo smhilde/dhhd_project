@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/unsemantic-grid-responsive-tablet.css' %}"/>
+		<link rel="stylesheet" href="{% static 'css/formalize.css' %}" />
+		<script src="{% static 'scripts/jquery-1.11.1.js' %}"></script>
+		<script src="{% static 'scripts/jquery.formalize.min' %}"></script>
+		{% block title %}
+		<title>Don Hildebrand Home Designs</title>
+		{% endblock title %}
+		{% block script %}
+		{% endblock script %}
+	</head>
+	
+	<body>
+		<div id="wrapper">
+			<header role="banner" class="grid-container">
+				<div class="grid-80 prefix-20">
+					<span id="brand">
+						<h1>Don Hildebrand Home Designs </h1>
+					</span>
+				</div>
+			</header>
+			<main role="main" class="grid-container">
+				<div class="grid-20">
+				{% block side-bar %}
+						<a href="{% url 'index' %}">Home</a><br />
+						<a href="{% url 'plan' %}">Plans</a><br />
+						<a href="{% url 'about' %}">About</a><br />
+				{% block user-block %}
+					{% if user.is_authenticated %}
+						<a href="/myplans/">My Plans</a><br />
+						<a href="/logout/">Log Out</a><br />
+					{% else %}
+						<a href="/register/">Register</a> or <a href="/login/">Login</a><br />
+					{% endif %}
+				{% endblock user-block %}
+				{% endblock side-bar %}
+				</div>
+				<div class="grid-80 grid-parent">
+				{% block body %}
+				{% endblock body %}
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

@@ -1,13 +1,41 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from plan.models import Plan, SpecialFeature
-from plan.forms import PlanForm
+from django.db.models import Q
+
+from plan.models import Plan, SpecialFeature, UserProfile
+from plan.forms import PlanForm, UserForm, UserProfileForm
 
 def index(request):
 	if request.method == 'POST':
 		form = PlanForm(request.POST)
 		if form.is_valid():
-			plan_list = Plan.objects.filter(area__range=(form.cleaned_data['min_area'], form.cleaned_data['max_area']))
+			plan_list = Plan.objects.all()
+			if form.cleaned_data.get('number'):
+				plan_list = Plan.objects.filter(number__exact=form.cleaned_data['number'])
+				return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
+			if form.cleaned_data.get('min_area'):
+				plan_list = plan_list.filter(area__gte=form.cleaned_data['min_area'])
+			if form.cleaned_data.get('max_area'):
+				plan_list = plan_list.filter(area__lte=form.cleaned_data['max_area'])
+			if form.cleaned_data.get('min_bed'):
+				plan_list = plan_list.filter(bed__gte=form.cleaned_data['min_bed'])
+			if form.cleaned_data.get('max_bed'):
+				plan_list = plan_list.filter(bed__lte=form.cleaned_data['max_bed'])
+			if form.cleaned_data.get('min_bath'):
+				plan_list = plan_list.filter(bath__gte=form.cleaned_data['min_bath'])
+			if form.cleaned_data.get('max_bath'):
+				plan_list = plan_list.filter(bath__lte=form.cleaned_data['max_bath'])
+			if form.cleaned_data.get('floor'):
+				plan_list = plan_list.filter(floor__exact=form.cleaned_data['floor'])
+			if form.cleaned_data.get('garage'):
+				plan_list = plan_list.filter(garage__exact=form.cleaned_data['garage'])
+			if form.cleaned_data.get('features'):
+				feature_filter = Q()
+				for feature in form.cleaned_data['features']:
+					feature_filter = feature_filter | Q(features__feature__contains=feature)
+				plan_list = plan_list.filter(feature_filter).distinct()
+				#plan_list = plan_list.filter(features__feature__in=form.cleaned_data['features']) # <-- This query is the intersection of the features, and I think that I want the union
+			
 			return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
 	else:
 		form = PlanForm()
@@ -22,7 +50,7 @@ def details(request, plan_number):
 	
 	try:
 		# Can I find a plan with the given number?
-		# If we can't, the .got() method raises a DoesNotExist execption.
+		# If we can't, the .get() method raises a DoesNotExist exception.
 		# So the .get() method returns one model instance or raises an exception.
 		plan = Plan.objects.get(number=plan_number)
 		context_dict['plan_object'] = plan
@@ -42,5 +70,5 @@ def details(request, plan_number):
 	except Plan.DoesNotExist:
 		pass
 	
-	return render(request, 'plan/details.html', context_dict)
+	return render(request, 'plan/details.html', context_dict)		
 
