@@ -30,11 +30,12 @@
 				{% endblock user-block %}
 			</div>
 
-			<header role="banner" class="grid-container brand">
+			<header class="brand grid-container" role="banner" >
 				<div class="grid-90 prefix-10 mobile-grid-100 brand" >
-					<h1>Don Hildebrand Home Designs </h1>
+					<h1>Don Hildebrand Home Designs</h1>
 				</div>
 			</header>
+			
 			<nav class="grid-container">
 				<ul class="nav grid-50 prefix-50 tablet-grid-100 grid-parent">
 					{% block side-bar %}
@@ -45,11 +46,14 @@
 				</ul>
 			</nav>
 		</div>
-			<main role="main" class="grid-container">
-				<div class="grid-90 prefix-10 grid-parent">
+		
+		<div role="main" class="grid-container">
+			<div class="grid-90 prefix-10 grid-parent">
 				{% block body %}
 				{% endblock body %}
-				</div>
-			</main>
+			</div>
+		</div>
+		
 	</body>
+	
 </html>
