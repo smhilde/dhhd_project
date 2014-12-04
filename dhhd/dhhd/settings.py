@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'plan',
+	'registration',
+	'endless_pagination',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,3 +96,18 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
 	STATIC_PATH,
 	)
+	
+REGISTRATION_OPEN = True       # If true, users can register.
+ACCOUNT_ACTIVATION_DAYS = 7    # One-week activation window. You can use any value.
+REGISTRATION_AUTO_LOGIN = True # If true, the newly registered user will be logged in.
+LOGIN_REDIRECT_URL = '/'       # The page you want users to arrive at after they've successfully logged in.
+LOGIN_URL = '/accounts/login/' # The page users are directed to if they are not logged in and try to access
+                               # pages that require authentication.
+
+# For Endless Pagination
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += (
+	'django.core.context_processors.request',
+	)
+ENDLESS_PAGINATION_PER_PAGE = 9
+ENDLESS_PAGINATION_ORPHANS = 2

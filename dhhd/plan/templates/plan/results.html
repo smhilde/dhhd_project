@@ -1,13 +1,22 @@
-{% extends "plan/index.html" %}
+{% extends 'plan/index.html' %}
 
-{% block search_results %}
+{% block results %}
+<div class="grid-100 grid-container search-results">
 	{% if plan_list %}
 		<ul>
 		{% for plan in plan_list %}
-			<li><a href="{% url 'details' plan.number %}">{{ plan.number }}</a></li>
+			<li class="grid-33 tablet-grid-50 grid-container">
+			<div class="grid-100"><a href="{% url 'details' plan.number %}">{{ plan.number }}</a></div>
+			<div class="grid-50"><p>{{ plan.number }}</p></div>
+			<div class="grid-50"><p>{{ plan.area }} Sq. Ft.</p></div>
+			<div class="grid-33"><p>{{ plan.bed }} Beds</p></div>
+			<div class="grid-33"><p>{{ plan.bath }} Baths</p></div>
+			<div class="grid-33"><p>{{ plan.garage }} Garage</p></div>
+			</li>
 		{% endfor %}
 		</ul>
-		{% else %}
-			<strong>No plans match your search. Please broaden your search criteria and try again.</strong><br />
-	{% endif %}
-{% endblock %}
+	{% else %}
+		<strong>No plans match your search. Please broaden your search criteria and try again.</strong><br />
+	{% endif %}	
+</div>
+{% endblock results %}

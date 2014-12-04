@@ -2,15 +2,20 @@
 
 {% load staticfiles %}
 
+
 {% block body %}
-	<h1>Plans</h1>
-	<form id="plan_form" action='/plan/' method="post">
-	{% csrf_token %}
-	<table>
-		{{ form.as_table }}
-	</table>
-	<input type="submit" value="Search Plans" />
-	</form>
-	{% block search_results %}
-	{% endblock %}
+	<div class="grid-100">
+		<h1>Plans</h1>
+		<form id="plan_form" action='/plan/' method="post">
+		{% csrf_token %}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="Search Plans" />
+		</form>
+	</div>
+
+	{% block results %}
+	{% endblock results %}
+	
 {% endblock body %}

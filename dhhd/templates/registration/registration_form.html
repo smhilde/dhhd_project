@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="grid-100">
+	<h2>Register Here</h2>
+		<form method="post" action=".">
+		{% csrf_token %}
+		{{ form.as_p }}
+		
+		<input type="submit" value="Register" />
+		</form>
+	
+	<p>Already have an account? <a href="{% url 'auth_login' %}">Log in.</a></p>
+</div>
+{% endblock body %}

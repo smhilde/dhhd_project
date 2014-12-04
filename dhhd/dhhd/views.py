@@ -12,17 +12,16 @@ def index(request):
 	# Order the plans by the number of likes in descending order.
 	# Retrieve the top 5 only - or all if less than 5.
 	# Place the list in the context_dict dictionary which will be passed to the template engine.
-	popular_plan_list = Plan.objects.order_by('-likes')[:5]
+	popular_plan_list = Plan.objects.order_by('-views')[:3]
 	# Most recent plans
-	recent_plan_list = Plan.objects.order_by('-pub_date')[:5]
+	recent_plan_list = Plan.objects.order_by('-pub_date')[:3]
 	context_dict = {'popular_plans': popular_plan_list, 'recent_plans': recent_plan_list}
 	return render(request, 'index.html', context_dict)
 	
 def about(request):
-	context_dict = {'about_message': 'Don Hildebrand Home Designs, L.L.C., was established in September, 1995. With over thirty years of experience, Don possesses a wonderful sense of style and creativity. He is known for utilizing space and giving the home buyer all the amenities they request within the constraints of the home. Don has a support staff committed to creating a quality product. Our company works as a team to achieve these goals. We strive to stay abreast of the changing times, styles, wants, and needs of our customers. The goal of our company is to turn your dreams into a reality; a home you will be proud of for many years to come.'
-		}
-	return render(request, 'about.html', context_dict)
+	return render(request, 'about.html', {})
 
+"""
 def register(request):
 	# A boolean value for telling the template whether the registration was successful.
 	# Set to False initially. Code changes value to True when registration succeeds.
@@ -107,3 +106,8 @@ def user_logout(request):
 	# Since we know the user is already logged in, we can just log them out
 	logout(request)
 	return HttpResponseRedirect('/')
+"""
+	
+@login_required
+def myplans(request):
+	return render(request, 'myplans.html', {})

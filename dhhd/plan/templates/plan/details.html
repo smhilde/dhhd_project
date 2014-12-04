@@ -3,6 +3,7 @@
 {% load staticfiles %}
 
 {% block body %}
+	<div class="grid-100"
 		{% if plan_object %}
 			<h1>Plan {{ plan_object.number }}</h1>
 			This is the detail page for plan number {{ plan_object.number }}.<br />
@@ -20,4 +21,5 @@
 		{% else %}
 			<strong>Plan {{ plan_number }} does not exist.</strong><br />
 		{% endif %}
+	</div>
 {% endblock body %}

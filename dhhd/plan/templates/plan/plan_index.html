@@ -1,0 +1,10 @@
+{% load staticfiles %}
+
+{% block js %}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static 'scripts/endless_pagination/js/endless-pagination.js' %}"></script>
+<script>$.endlessPaginate();</script>
+{% endblock %}
+
+<h2>Plans:</h2>
+{% include page_template %}

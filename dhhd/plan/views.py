@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.db.models import Q
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template import RequestContext
+from endless_pagination.decorators import page_template
 from plan.models import Plan, SpecialFeature, UserProfile
 from plan.forms import PlanForm, UserForm, UserProfileForm
 
@@ -35,11 +37,11 @@ def index(request):
 					feature_filter = feature_filter | Q(features__feature__contains=feature)
 				plan_list = plan_list.filter(feature_filter).distinct()
 				#plan_list = plan_list.filter(features__feature__in=form.cleaned_data['features']) # <-- This query is the intersection of the features, and I think that I want the union
-			
+					
 			return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
+
 	else:
 		form = PlanForm()
-	
 	return render(request, 'plan/index.html', {'form': form})
 	
 def details(request, plan_number):
@@ -54,6 +56,8 @@ def details(request, plan_number):
 		# So the .get() method returns one model instance or raises an exception.
 		plan = Plan.objects.get(number=plan_number)
 		context_dict['plan_object'] = plan
+		plan.views += 1
+		plan.save()
 		
 		plan_features = []
 		for feature in plan.features.all():
@@ -72,3 +76,22 @@ def details(request, plan_number):
 	
 	return render(request, 'plan/details.html', context_dict)		
 
+"""
+@page_template('plan/plan_index_page.html')
+def plan_index(request, template='plan/plan_index.html', extra_context=None):
+	context = {
+		'plans': Plan.objects.all(),
+	}
+	if extra_context is not None:
+		context.update(extra_context)
+	return render_to_response(template, context, context_instance=RequestContext(request))
+"""
+	
+def plan_index(request, template='plan/plan_index.html', page_template='plan/plan_index_page.html'):
+	context = {
+		'plans': Plan.objects.all(),
+		'page_template': page_template,
+	}
+	if request.is_ajax():
+		template = page_template
+	return render_to_response(template, context, context_instance=RequestContext(request))

@@ -5,10 +5,12 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/dhhd_style.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/unsemantic-grid-responsive-tablet.css' %}"/>
-		<link rel="stylesheet" href="{% static 'css/formalize.css' %}" />
-		<script src="{% static 'scripts/jquery-1.11.1.js' %}"></script>
-		<script src="{% static 'scripts/jquery.formalize.min' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/formalize.css' %}" />
+		<!-- <script src="{% static 'scripts/jquery-1.11.1.js' %}"></script> -->
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="{% static 'scripts/jquery.formalize.min.js' %}"></script>
 		{% block title %}
 		<title>Don Hildebrand Home Designs</title>
 		{% endblock title %}
@@ -17,35 +19,37 @@
 	</head>
 	
 	<body>
-		<div id="wrapper">
-			<header role="banner" class="grid-container">
-				<div class="grid-80 prefix-20">
-					<span id="brand">
-						<h1>Don Hildebrand Home Designs </h1>
-					</span>
+		<div class="brand">
+			<div class="brand grid-container" role="navigation">
+				{% block user-block %}
+				{% if user.is_authenticated %}
+					<span class="social grid-33 prefix-66"><a href="{% url 'myplans' %}">My Saved Plans</a> | <a href="{% url 'auth_logout' %}?next=/">Logout</a></span>
+				{% else %}
+					<span class="social grid-33 prefix-66">Are you a Member? <a href="{% url 'registration_register' %}">Register</a> / <a href="{% url 'auth_login' %}">Login</a></span>			
+				{% endif %}
+				{% endblock user-block %}
+			</div>
+
+			<header role="banner" class="grid-container brand">
+				<div class="grid-90 prefix-10 mobile-grid-100 brand" >
+					<h1>Don Hildebrand Home Designs </h1>
 				</div>
 			</header>
+			<nav class="grid-container">
+				<ul class="nav grid-50 prefix-50 tablet-grid-100 grid-parent">
+					{% block side-bar %}
+					<li class="grid-33 tablet-grid-33"><a href="{% url 'index' %}">Home</a></li>
+					<li class="grid-33 tablet-grid-33"><a href="{% url 'plan' %}">+ Our Plans</a></li>
+					<li class="grid-33 tablet-grid-33"><a href="{% url 'about' %}">+ About Us</a></li>
+					{% endblock side-bar %}
+				</ul>
+			</nav>
+		</div>
 			<main role="main" class="grid-container">
-				<div class="grid-20">
-				{% block side-bar %}
-						<a href="{% url 'index' %}">Home</a><br />
-						<a href="{% url 'plan' %}">Plans</a><br />
-						<a href="{% url 'about' %}">About</a><br />
-				{% block user-block %}
-					{% if user.is_authenticated %}
-						<a href="/myplans/">My Plans</a><br />
-						<a href="/logout/">Log Out</a><br />
-					{% else %}
-						<a href="/register/">Register</a> or <a href="/login/">Login</a><br />
-					{% endif %}
-				{% endblock user-block %}
-				{% endblock side-bar %}
-				</div>
-				<div class="grid-80 grid-parent">
+				<div class="grid-90 prefix-10 grid-parent">
 				{% block body %}
 				{% endblock body %}
 				</div>
 			</main>
-		</div>
 	</body>
 </html>

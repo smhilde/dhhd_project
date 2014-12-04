@@ -1,0 +1,9 @@
+{% load endless %}
+
+{% paginate plans %}
+
+{% for plan in plans %}
+	<p>{{ plan.number }}</p>
+{% endfor %}
+
+{% show_pages %}

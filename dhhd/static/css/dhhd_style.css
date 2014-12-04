@@ -1,0 +1,78 @@
+html, body, header, div, h1, h2, h3, h4, h5, h6, ul, ol, li, p, span, a {
+	padding: 0;
+	border: 0;
+	margin: 0;
+	font-family: "Helvetica Neue", Helvetica, 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Veranda', sans-serif;
+}
+body {
+	background-color: #ffffff;
+}
+div {
+	margin: 0 0 0 0;
+	background-color: #ffffff;
+}
+h1 {
+	margin: 0.5em 0 0.33em 0;
+	padding-top: 0.5em;
+	color: #11557C;
+	font-size: 2em;
+}
+h2 {
+	margin: 0.5em 0 0.33em 0;
+	color: #11557C;
+	font-size: 1.7em;
+}
+p {
+	margin: 0 0 1.15em 0;
+	color: #1e1e1e;
+}
+ul {
+	list-style-type: none;
+ 	margin: 0 0 0 1.5em;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+a {
+	text-decoration: none;
+	color: #e24a33;
+}
+a:hover {
+	color: #188487;
+}
+.brand {
+	background-color: #353535;
+}
+.brand h1 {
+	color: #ffffff;
+	font-weight: 100;
+	font-size: 3em;
+	margin: 0.5em 0 0.5em 0;
+}
+.brand a{
+	color: #77efd2;
+}
+.brand a:hover {
+	color: #97fff2;
+}
+.nav {
+	padding: 0;
+	margin-left: 0;
+	margin-bottom: 1em;
+}
+.nav li {
+	display: inline;
+	font-size: 1.3em;
+	text-align: right;
+}
+.social {
+	padding: 0;
+}
+.social li, span {
+	display: inline;
+	text-align: right;
+	font-size: 0.75em;
+	color: #e4e4e4;
+	margin-top: 1em;
+}
