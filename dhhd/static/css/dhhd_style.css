@@ -5,11 +5,10 @@ html, body, header, main, div, nav, h1, h2, h3, h4, h5, h6, ul, ol, li, p, span,
 	font-family: "Helvetica Neue", Helvetica, 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Veranda', sans-serif;
 }
 body {
-	background-color: #ffffff;
+	background-image: url(../images/old_mathematics.png);
 }
 div {
 	margin: 0 0 0 0;
-	background-color: #ffffff;
 }
 h1 {
 	margin: 0.5em 0 0.33em 0;
@@ -42,6 +41,7 @@ a:hover {
 	color: #188487;
 }
 .brand {
+	background-image: url(../images/low_contrast_linen.png);
 	background-color: #353535;
 }
 .brand h1 {
