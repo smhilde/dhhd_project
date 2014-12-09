@@ -1,3 +1,7 @@
+*.csv
+*.xls
+*tmp*
+
 # Compiled source #
 ###################
 *.com

@@ -20,18 +20,18 @@
 	<div class="grid-100">
 	{% if user.is_authenticated %}
 		{% if user.first_name %}
-			<h1>Welcome, {{ user.first_name }}.</h1>
+			<h2>Welcome, {{ user.first_name }}.</h2>
 		{% else %}
-			<h1>Welcome, {{ user.username }}.</h1>
+			<h2>Welcome, {{ user.username }}.</h2>
 		{% endif %}
 	{% else %}
-		<h1>Welcome.</h1>
+		<h2>Welcome.</h2>
 	{% endif %}
 	<p>You've found the home page of Don Hildebrand Home Designs.</p>
 	</div>
 	<div class="grid-50 tablet-grid-50">
 		{% if popular_plans %}
-			<h2>Liked</h2>
+			<h3>Most Viewed</h3>
 			<ul>
 			{% for plan in popular_plans %}
 				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
@@ -43,7 +43,7 @@
 	</div>
 	<div class="grid-50 tablet-grid-50">
 		{% if recent_plans %}
-			<h2>Recent</h2>
+			<h3>Recently Added</h3>
 			<ul>
 			{% for plan in recent_plans %}
 				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
