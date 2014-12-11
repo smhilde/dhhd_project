@@ -20,14 +20,15 @@
 	<div class="grid-100">
 	{% if user.is_authenticated %}
 		{% if user.first_name %}
-			<h2>Welcome, {{ user.first_name }}.</h2>
+			<h2>Welcome Home {{ user.first_name }}.</h2>
 		{% else %}
-			<h2>Welcome, {{ user.username }}.</h2>
+			<h2>Welcome Home, {{ user.username }}.</h2>
 		{% endif %}
 	{% else %}
-		<h2>Welcome.</h2>
+		<h2>Welcome Home</h2>
 	{% endif %}
-	<p>You've found the home page of Don Hildebrand Home Designs.</p>
+	<p>For forty years, we've been helping you put pen to paper and design the home you'll love today...and for years to come.
+	   At Don Hildebrand Home Designs, it's important to us to help you do something.</p>
 	</div>
 	<div class="grid-50 tablet-grid-50">
 		{% if popular_plans %}
@@ -52,8 +53,5 @@
 		{% else %}
 			<strong>There are no plans present.</strong>
 		{% endif %}
-	</div>
-	<div class="grid-100">
-		<img src="{% static 'images/index_image_oct04.jpg' %}" alt="home page image" />
 	</div>
 {% endblock body %}

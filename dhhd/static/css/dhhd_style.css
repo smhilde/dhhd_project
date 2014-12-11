@@ -2,10 +2,9 @@ html, body, header, main, div, nav, h1, h2, h3, h4, h5, h6, ul, ol, li, p, span,
 	padding: 0;
 	border: 0;
 	margin: 0;
-	font-family: 'Cambo', serif;
 }
 body {
-	background-color: #eeeeff;
+	background-color: #fff;
 }
 div {
 	margin: 0 0 0 0;
@@ -13,25 +12,26 @@ div {
 h1 {
 	margin: 0.5em 0 0.33em 0;
 	padding-top: 0.5em;
-	color: #11557C;
+	color: #cc3910;
 	font-size: 3em;
 	font-family: 'Josefin Sans', sans-serif;
 }
 h2 {
 	margin: 0.5em 0 0.33em 0;
-	color: #11557C;
+	color: #cc3910;
 	font-size: 1.7em;
 	font-family: 'Josefin Sans', sans-serif;
 }
 h3 {
 	margin: 0.5em 0 0.33em 0;
-	color: #11557C;
+	color: #cc3910;
 	font-size: 1.7em;
 	font-family: 'Josefin Sans', sans-serif;
 }
 p {
 	margin: 0 0 1.15em 0;
-	color: #1e1e1e;
+	color: #332f29;
+	font-family: Cambo, serif;
 }
 ul {
 	list-style-type: none;
@@ -48,35 +48,28 @@ a {
 a:hover {
 	color: #188487;
 }
-.brand {
-	background-image: url(../images/low_contrast_linen.png);
-	background-color: #353535;
-}
 .brand h1 {
-	color: #ffffff;
-	font-weight: 100;
+	color: #cc3910;
+	font-weight: 400;
 	font-size: 3em;
 	margin: 0.5em 0 0.5em 0;
 }
 .brand a{
-	color: #77efd2;
+	color: #cc3910;
 }
 .brand a:hover {
-	color: #97fff2;
+	color: #ccc593;
 }
 .nav {
-	padding: 0;
-	margin-left: 0;
 	margin-bottom: 1em;
+	font-family: 'Josefin Sans', sans-serif;
 }
 .nav li {
 	display: inline;
 	font-size: 1.3em;
-	text-align: right;
+	text-align: left;
 }
-.social {
-	padding: 0;
-}
+
 .social li, span {
 	display: inline;
 	text-align: right;
