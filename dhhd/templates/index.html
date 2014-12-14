@@ -17,43 +17,51 @@
 {% endblock script %}
 
 {% block body %}
-	<div class="grid-100">
-	{% if user.is_authenticated %}
-		{% if user.first_name %}
-			<h2>Welcome, {{ user.first_name }}.</h2>
-		{% else %}
-			<h2>Welcome, {{ user.username }}.</h2>
-		{% endif %}
-	{% else %}
-		<h2>Welcome.</h2>
-	{% endif %}
-	<p>You've found the home page of Don Hildebrand Home Designs.</p>
+	<div class="rotator grid-parent">
+		<figure class="grid-66">
+			<img src="{% static 'images/index_image_oct04.jpg' %}" alt="home page image" />
+		</figure>
+		<div class="grid-33">
+			{% if user.is_authenticated %}
+				{% if user.first_name %}
+					<h2>Welcome home, {{ user.first_name }}.</h2>
+				{% else %}
+					<h2>Welcome home, {{ user.username }}.</h2>
+				{% endif %}
+			{% else %}
+				<h2>Welcome home.</h2>
+			{% endif %}
+			<p>You've found the home page of Don Hildebrand Home Designs.</p>
+		</div>
 	</div>
-	<div class="grid-50 tablet-grid-50">
-		{% if popular_plans %}
-			<h3>Most Viewed</h3>
-			<ul>
-			{% for plan in popular_plans %}
-				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
-			{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no plans present.</strong>
-		{% endif %}
-	</div>
-	<div class="grid-50 tablet-grid-50">
-		{% if recent_plans %}
-			<h3>Recently Added</h3>
-			<ul>
-			{% for plan in recent_plans %}
-				<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
-			{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no plans present.</strong>
-		{% endif %}
-	</div>
-	<div class="grid-100">
-		<img src="{% static 'images/index_image_oct04.jpg' %}" alt="home page image" />
-	</div>
+	
+	<section class="favorites grid-100 grid-parent">
+		<div class="grid-33 tablet-grid-50">
+			{% if popular_plans %}
+				<h3>Most Viewed Plans</h3>
+				<ul>
+				{% for plan in popular_plans %}
+					<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<strong>There are no plans present.</strong>
+			{% endif %}
+		</div>
+		<div class="grid-33 tablet-grid-50">
+			{% if recent_plans %}
+				<h3>Recently Added Plans</h3>
+				<ul>
+				{% for plan in recent_plans %}
+					<li><a href="/plan/{{ plan.number }}">{{ plan.number }}</a></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<strong>There are no plans present.</strong>
+			{% endif %}
+		</div>
+		<div class="grid-33">
+			<h3>Visit Us</h3>
+		</div>
+	</section>
 {% endblock body %}

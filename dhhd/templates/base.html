@@ -5,10 +5,10 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="{% static 'css/dhhd_style.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/unsemantic-grid-responsive-tablet.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/formalize.css' %}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cambo|Josefin+Sans" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/dhhd_style.css' %}" />
 		<!-- <script src="{% static 'scripts/jquery-1.11.1.js' %}"></script> -->
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="{% static 'scripts/jquery.formalize.min.js' %}"></script>
@@ -20,39 +20,37 @@
 	</head>
 	
 	<body>
-		<div class="brand">
-			<div class="brand grid-container" role="navigation">
-				{% block user-block %}
-				{% if user.is_authenticated %}
-					<span class="social grid-33 prefix-66"><a href="{% url 'myplans' %}">My Saved Plans</a> | <a href="{% url 'auth_logout' %}?next=/">Logout</a></span>
-				{% else %}
-					<span class="social grid-33 prefix-66">Are you a Member? <a href="{% url 'registration_register' %}">Register</a> / <a href="{% url 'auth_login' %}">Login</a></span>			
-				{% endif %}
-				{% endblock user-block %}
-			</div>
+	
+		<header class="brand grid-container">
+			{% block user-block %}
+			{% if user.is_authenticated %}
+				<span class="grid-33 prefix-66"><a href="{% url 'myplans' %}">My Saved Plans</a> | <a href="{% url 'auth_logout' %}?next=/">Logout</a></span>
+			{% else %}
+				<span class="grid-33 prefix-66">Are you a Member? <a href="{% url 'registration_register' %}">Register</a> / <a href="{% url 'auth_login' %}">Login</a></span>			
+			{% endif %}
+			{% endblock user-block %}
 
-			<header class="grid-container" role="banner" >
-				<div class="grid-90 prefix-10 mobile-grid-100" >
-					<h1>Don Hildebrand Home Designs</h1>
+			<div class="brand grid-parent">
+				<div class="grid-20">		
+					<img src="{% static 'images/old_mathematics.png' %}" alt="home page image" />
 				</div>
-			</header>
+				<h1 class="grid-80 mobile-grid-100">Don Hildebrand Home Designs</h1>
+			</div>
 			
-			<nav class="grid-container">
-				<ul class="nav grid-50 prefix-50 tablet-grid-100 grid-parent">
+			<nav>
+				<ul class="grid-80 prefix-20 tablet-grid-100 grid-parent">
 					{% block side-bar %}
-					<li class="grid-33 tablet-grid-33"><a href="{% url 'index' %}">Home</a></li>
-					<li class="grid-33 tablet-grid-33"><a href="{% url 'plan' %}">+ Our Plans</a></li>
-					<li class="grid-33 tablet-grid-33"><a href="{% url 'about' %}">+ About Us</a></li>
+					<li class="grid-20 tablet-grid-20"><a href="{% url 'index' %}">Home</a></li>
+					<li class="grid-20 tablet-grid-20"><a href="{% url 'plan' %}">Our Plans</a></li>
+					<li class="grid-20 tablet-grid-20"><a href="{% url 'about' %}">About Us</a></li>
 					{% endblock side-bar %}
 				</ul>
 			</nav>
-		</div>
+		</header>
 		
 		<div role="main" class="grid-container">
-			<div class="grid-90 prefix-10 grid-parent">
 				{% block body %}
 				{% endblock body %}
-			</div>
 		</div>
 		
 	</body>
