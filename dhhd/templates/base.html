@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/unsemantic-grid-responsive-tablet.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/formalize.css' %}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cambo|Josefin+Sans" />
@@ -21,38 +22,46 @@
 	
 	<body>
 	
-		<header class="brand grid-container">
+		<header class="grid-container grid-parent">
+			<div class="grid-100">
+			<div class="brand grid-100">
 			{% block user-block %}
 			{% if user.is_authenticated %}
-				<span class="grid-33 prefix-66"><a href="{% url 'myplans' %}">My Saved Plans</a> | <a href="{% url 'auth_logout' %}?next=/">Logout</a></span>
+				<p class="auth brand grid-100"><a href="{% url 'myplans' %}">My Saved Plans</a> | <a href="{% url 'auth_logout' %}?next=/">Logout</a></p>
 			{% else %}
-				<span class="grid-33 prefix-66">Are you a Member? <a href="{% url 'registration_register' %}">Register</a> / <a href="{% url 'auth_login' %}">Login</a></span>			
+				<p class="auth brand grid-100">Join us to save your favorite plans. <a href="{% url 'registration_register' %}">Register</a> or <a href="{% url 'auth_login' %}">Login</a>.</p>			
 			{% endif %}
 			{% endblock user-block %}
 
-			<div class="brand grid-parent">
-				<div class="grid-20">		
+			<div class="grid-parent">
+				<div class="logo grid-20">		
 					<img src="{% static 'images/old_mathematics.png' %}" alt="home page image" />
 				</div>
-				<h1 class="grid-80 mobile-grid-100">Don Hildebrand Home Designs</h1>
+				<div class="grid-80 tablet-grid-80 mobile-grid-100">
+					<h1>Don Hildebrand Home Designs</h1>
+					<nav>
+						<ul class="grid-parent">
+							{% block side-bar %}
+							<li class="grid-15 tablet-grid-20"><a href="{% url 'index' %}">Home</a></li>
+							<li class="grid-20 tablet-grid-20"><a href="{% url 'plan' %}">Our Plans</a></li>
+							<li class="grid-20 tablet-grid-20"><a href="{% url 'about' %}">About Us</a></li>
+							{% endblock side-bar %}
+						</ul>
+					</nav>
+				</div>
 			</div>
 			
-			<nav>
-				<ul class="grid-80 prefix-20 tablet-grid-100 grid-parent">
-					{% block side-bar %}
-					<li class="grid-20 tablet-grid-20"><a href="{% url 'index' %}">Home</a></li>
-					<li class="grid-20 tablet-grid-20"><a href="{% url 'plan' %}">Our Plans</a></li>
-					<li class="grid-20 tablet-grid-20"><a href="{% url 'about' %}">About Us</a></li>
-					{% endblock side-bar %}
-				</ul>
-			</nav>
+			</div>
+			</div>
 		</header>
 		
-		<div role="main" class="grid-container">
+		<main class="grid-container grid-parent">
 				{% block body %}
 				{% endblock body %}
-		</div>
+		</main>
 		
+		<footer>
+		</footer>
 	</body>
 	
 </html>
