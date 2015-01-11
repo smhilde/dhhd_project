@@ -21,37 +21,44 @@
 	</head>
 	
 	<body>
-	
 		<header class="grid-container grid-parent">
 			<div class="grid-100">
-			<div class="brand grid-100">
-			{% block user-block %}
-			{% if user.is_authenticated %}
-				<p class="auth brand grid-100"><a href="{% url 'myplans' %}">My Saved Plans</a> | <a href="{% url 'auth_logout' %}?next=/">Logout</a></p>
-			{% else %}
-				<p class="auth brand grid-100">Join us to save your favorite plans. <a href="{% url 'registration_register' %}">Register</a> or <a href="{% url 'auth_login' %}">Login</a>.</p>			
-			{% endif %}
-			{% endblock user-block %}
+				<div class="brand outlined grid-100">
+				{% block user-block %}
+				{% if user.is_authenticated %}
+					<p class="auth brand grid-100">
+					{% if user.first_name %}
+						Welcome back, {{ user.first_name }}.
+					{% else %}
+						Welcome back, {{ user.username }}.
+					{% endif %}
+					 <a href="{% url 'auth_logout' %}?next=/">Logout</a></p>
+				{% else %}
+					<p class="auth brand grid-100">Join us to save your favorite plans. <a href="{% url 'registration_register' %}">Register</a> or <a href="{% url 'auth_login' %}">Login</a>.</p>			
+				{% endif %}
+				{% endblock user-block %}
 
-			<div class="grid-parent">
-				<div class="logo grid-20">		
-					<img src="{% static 'images/old_mathematics.png' %}" alt="home page image" />
+					<div class="grid-parent">
+						<div class="logo grid-20">		
+							<img src="{% static 'images/dhhd_logo.png' %}" alt="Don Hildebrand Home Designs Logo" />
+						</div>
+						<div class="grid-80 tablet-grid-80 mobile-grid-100">
+							<h1>Don Hildebrand Home Designs</h1>
+							<nav>
+								<ul class="grid-parent">
+									{% block side-bar %}
+									<li class="grid-15 tablet-grid-15"><a href="{% url 'index' %}">Home</a></li>
+									<li class="grid-20 tablet-grid-20"><a href="{% url 'plan' %}">Our Plans</a></li>
+									<li class="grid-20 tablet-grid-20"><a href="{% url 'about' %}">About Us</a></li>
+									{% if user.is_authenticated %}
+									<li class="grid-30 tablet-grid-30"><a href="{% url 'myplans' %}">My Saved Plans</a></li>
+									{% endif %}
+									{% endblock side-bar %}
+								</ul>
+							</nav>
+						</div>
+					</div>
 				</div>
-				<div class="grid-80 tablet-grid-80 mobile-grid-100">
-					<h1>Don Hildebrand Home Designs</h1>
-					<nav>
-						<ul class="grid-parent">
-							{% block side-bar %}
-							<li class="grid-15 tablet-grid-20"><a href="{% url 'index' %}">Home</a></li>
-							<li class="grid-20 tablet-grid-20"><a href="{% url 'plan' %}">Our Plans</a></li>
-							<li class="grid-20 tablet-grid-20"><a href="{% url 'about' %}">About Us</a></li>
-							{% endblock side-bar %}
-						</ul>
-					</nav>
-				</div>
-			</div>
-			
-			</div>
 			</div>
 		</header>
 		
@@ -60,7 +67,29 @@
 				{% endblock body %}
 		</main>
 		
-		<footer>
+		<footer class="grid-container grid-parent">
+			<div class="grid-100">
+				<div class="grid-100 footer outlined">
+					<p class="tag-line"><span class="dream grid-33">Dream.</span> <span class="design grid-33">Design.</span> <span class="dwell grid-33">Dwell.</span></p>
+					<section class="grid-25">
+						
+						<a href="http://www.houzz.com/pro/cdhilde/don-hildebrand-home-designs" rel="external" target="_blank">
+							<img src="{% static 'images/houzz_logo_only.gif' %}" alt="Houzz Logo" />Find Us on <span class="houzz">Houzz</span>.
+						</a>
+						
+					</section>
+					<section class="grid-25">
+						<img src="{% static 'images/home.png' %}" alt="home image" /><address>1701 W. 33rd Street<br>Edmond, OK  73013<br></address>
+					</section>
+					<section class="grid-25">
+						<img src="{% static 'images/phone.png' %}" alt="phone image" /><p>(405) 330-2171</p>
+					</section>
+					<section class="grid-25">
+						<a href="mailto:don@donhildebrandhomedesigns.com" target="_blank"><img src="{% static 'images/email.png' %}" alt="e-mail image" />Don Hildebrand</a>
+					</section>
+					<p class="copyright grid-100">All floor plans, elevations, and renderings are copyright &copy; 2015 by Don Hildebrand Home Designs, LLC. All rights reserved.</p>
+				</div>
+			</div>
 		</footer>
 	</body>
 	

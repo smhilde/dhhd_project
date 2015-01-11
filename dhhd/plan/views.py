@@ -27,22 +27,31 @@ def index(request):
 				plan_list = plan_list.filter(bath__gte=form.cleaned_data['min_bath'])
 			if form.cleaned_data.get('max_bath'):
 				plan_list = plan_list.filter(bath__lte=form.cleaned_data['max_bath'])
-			if form.cleaned_data.get('floor'):
-				plan_list = plan_list.filter(floor__exact=form.cleaned_data['floor'])
-			if form.cleaned_data.get('garage'):
-				plan_list = plan_list.filter(garage__exact=form.cleaned_data['garage'])
+			if form.cleaned_data.get('min_floor'):
+				plan_list = plan_list.filter(floor__gte=form.cleaned_data['min_floor'])
+			if form.cleaned_data.get('max_floor'):
+				plan_list = plan_list.filter(floor__lte=form.cleaned_data['max_floor'])
+			if form.cleaned_data.get('min_garage'):
+				plan_list = plan_list.filter(garage__gte=form.cleaned_data['min_garage'])
+			if form.cleaned_data.get('max_garage'):
+				plan_list = plan_list.filter(garage__lte=form.cleaned_data['max_garage'])
 			if form.cleaned_data.get('features'):
 				feature_filter = Q()
 				for feature in form.cleaned_data['features']:
 					feature_filter = feature_filter | Q(features__feature__contains=feature)
 				plan_list = plan_list.filter(feature_filter).distinct()
 				#plan_list = plan_list.filter(features__feature__in=form.cleaned_data['features']) # <-- This query is the intersection of the features, and I think that I want the union
-					
-			return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
+			
+			plan_list = reformat_plan(plan_list)
+
+			return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
 
 	else:
+		plan_list = Plan.objects.all()
+		plan_list = reformat_plan(plan_list)
+		
 		form = PlanForm()
-	return render(request, 'plan/index.html', {'form': form})
+	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
 	
 def details(request, plan_number):
 
@@ -55,9 +64,12 @@ def details(request, plan_number):
 		# If we can't, the .get() method raises a DoesNotExist exception.
 		# So the .get() method returns one model instance or raises an exception.
 		plan = Plan.objects.get(number=plan_number)
-		context_dict['plan_object'] = plan
 		plan.views += 1
 		plan.save()
+		
+		plan = reformat_plan(plan)
+		
+		context_dict['plan_object'] = plan
 		
 		plan_features = []
 		for feature in plan.features.all():
@@ -95,3 +107,26 @@ def plan_index(request, template='plan/plan_index.html', page_template='plan/pla
 	if request.is_ajax():
 		template = page_template
 	return render_to_response(template, context, context_instance=RequestContext(request))
+
+def reformat_plan(plan_list):
+	try:
+		for plan in plan_list:
+			# Re-format the width and depth from floats to FF'-II" format.
+			plan.width = str(int(plan.width)) + "'-" + str(round((plan.width - int(plan.width))*12)) + '"'
+			plan.depth = str(int(plan.depth)) + "'-" + str(round((plan.depth - int(plan.depth))*12)) + '"'
+			# Re-format bedrooms from float to int
+			plan.bed = int(plan.bed)
+			# Re-format bathrooms to int if the number of bathrooms is whole
+			if not plan.bath%1:
+				plan.bath = int(plan.bath)
+	except:
+			# Re-format the width and depth from floats to FF'-II" format.
+			plan_list.width = str(int(plan_list.width)) + "'-" + str(round((plan_list.width - int(plan_list.width))*12)) + '"'
+			plan_list.depth = str(int(plan_list.depth)) + "'-" + str(round((plan_list.depth - int(plan_list.depth))*12)) + '"'
+			# Re-format bedrooms from float to int
+			plan_list.bed = int(plan_list.bed)
+			# Re-format bathrooms to int if the number of bathrooms is whole
+			if not plan_list.bath%1:
+				plan_list.bath = int(plan_list.bath)
+	
+	return plan_list

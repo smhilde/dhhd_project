@@ -14,7 +14,7 @@ class CustomerInline(admin.TabularInline):
 class PlanAdmin(admin.ModelAdmin):
 	
 	fieldsets = [
-		(None, 			      {'fields': [('number', 'title'), 'area', ('bed', 'bath'), ('floor', 'garage', 'ceiling'), 'price']}),
+		(None, 			      {'fields': [('number', 'title'), 'area', ('bed', 'bath', 'living'), ('floor', 'garage', 'ceiling'), 'price']}),
 		('Rendering Details', {'fields': [('elevation_file', 'floorplan_file')]}),
 		('Footprint Details', {'fields': [('width', 'depth', 'height')], 'classes': ('collapse')}),
 		('Date Information',  {'fields': ['pub_date'], 'classes': ('collapse')}),

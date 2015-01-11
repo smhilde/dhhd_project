@@ -3,23 +3,64 @@
 {% load staticfiles %}
 
 {% block body %}
-	<div class="grid-100"
-		{% if plan_object %}
-			<h1>Plan {{ plan_object.number }}</h1>
-			This is the detail page for plan number {{ plan_object.number }}.<br />
-			This is the page that you will see if a person clicks on a plan from the search.<br />
-			{% static "plan/" as img_path %}
-			{# <img src="{{ img_path }}{{ plan_object.elevation_file }}" alt="plan elevation" /> #}
-			<img src="{{ img_path }}{{ plan_object.floorplan_file }}" alt="floor plan picture" />
-			{% if plan_features %}
-				<ul>
-					{% for feature in plan_features %}
-						<li>{{ feature }}</li>
-					{% endfor %}
-				</ul>
+<div class="grid-100 grid-parent">
+	<div class="grid-100 ">
+		<section class="featured outlined grid-100">
+			{% if plan_object %}
+				<h1>Plan {{ plan_object.number }}</h1>
+				{% static "plan/" as img_path %}
+				<div class="grid-60 tablet-grid-60 mobile-grid-100 elevation">
+					<img src="{{ img_path }}{{ plan_object.elevation_file }}" alt="plan elevation" />
+				</div>
+				<div class="grid-40 tablet-grid-40 mobile-grid-100 plan_details">
+					<h2>Details</h2>
+					<div class="grid-33">
+						<p><em>Bedrooms:</em> {{ plan_object.bed }}</p>
+					</div>
+					<div class="grid-33">
+						<p><em>Bathrooms:</em> {{ plan_object.bath }}</p>
+					</div>
+					<div class="grid-33">
+						<p><em>Living Areas:</em> {{ plan_object.living }}</p>
+					</div>
+					<div class="grid-33">
+						<p><em>Square Feet:</em> {{ plan_object.area }}</p>
+					</div>
+					<div class="grid-33">
+						<p><em>Garage:</em> {{ plan_object.garage }} Car</p>
+					</div>
+					<div class="grid-33">
+						<p><em>Floors:</em> {{ plan_object.floor }}</p>
+					</div>
+					<div class="grid-33">
+						<p><em>Width:</em> {{ plan_object.width }}</p>
+					</div>
+					<div class="grid-33 suffix-33">
+						<p><em>Depth:</em> {{ plan_object.depth }}</p>
+					</div>
+				{% if plan_features %}
+					<div class="grid-100">
+						<h3>Special Features</h3>
+						<ul>
+							{% for feature in plan_features %}
+								<div class="grid-33">
+								<li>{{ feature }}</li>
+								</div>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				</div>
+				<div class="grid-100 tablet-grid-100 mobile-grid-100 floorplan">
+					<img src="{{ img_path }}{{ plan_object.floorplan_file }}" alt="floor plan" />
+				</div>
+			{% else %}
+				<p>Well, we've made a mistake. Plan {{ plan_number }} can't be found in our records.</p><br />
 			{% endif %}
-		{% else %}
-			<strong>Plan {{ plan_number }} does not exist.</strong><br />
-		{% endif %}
+		</section>
 	</div>
+</div>
+
+{% if plan.location %}
+{% endif %}
 {% endblock body %}

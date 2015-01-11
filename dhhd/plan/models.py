@@ -10,6 +10,7 @@ class Plan(models.Model):
 	bath = models.FloatField('Bathrooms')
 	floor = models.PositiveIntegerField('Number of Floors', default=1)
 	garage = models.PositiveIntegerField('Garage Size')
+	living = models.PositiveIntegerField('Living Areas', default=1)
 	width = models.FloatField('House Width', null=True)
 	depth = models.FloatField('House Depth', null=True)
 	height = models.FloatField('House Height', null=True)

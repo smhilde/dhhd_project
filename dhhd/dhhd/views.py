@@ -12,15 +12,29 @@ def index(request):
 	# Order the plans by the number of likes in descending order.
 	# Retrieve the top 5 only - or all if less than 5.
 	# Place the list in the context_dict dictionary which will be passed to the template engine.
-	popular_plan_list = Plan.objects.order_by('-views')[:3]
+	#popular_plan_list = Plan.objects.order_by('-views')[:3]
+	popular_plan_list = reformat_plan(Plan.objects.order_by('-views')[:3])
 	# Most recent plans
-	recent_plan_list = Plan.objects.order_by('-pub_date')[:3]
+	recent_plan_list = reformat_plan(Plan.objects.order_by('-pub_date')[:3])
+	
 	context_dict = {'popular_plans': popular_plan_list, 'recent_plans': recent_plan_list}
 	return render(request, 'index.html', context_dict)
 	
 def about(request):
 	return render(request, 'about.html', {})
 
+def reformat_plan(plan_list):
+	for plan in plan_list:
+		# Re-format the width and depth from floats to FF'-II" format.
+		plan.width = str(int(plan.width)) + "'-" + str(round((plan.width - int(plan.width))*12)) + '"'
+		plan.depth = str(int(plan.depth)) + "'-" + str(round((plan.depth - int(plan.depth))*12)) + '"'
+		# Re-format bedrooms from float to int
+		plan.bed = int(plan.bed)
+		# Re-format bathrooms to int if the number of bathrooms is whole
+		if not plan.bath%1:
+			plan.bath = int(plan.bath)
+	
+	return plan_list
 """
 def register(request):
 	# A boolean value for telling the template whether the registration was successful.

@@ -1,22 +1,30 @@
 {% extends 'plan/index.html' %}
+{% load staticfiles %}
 
 {% block results %}
-<div class="grid-100 grid-container search-results">
+<div class="grid-100 grid-parent search-results">
 	{% if plan_list %}
-		<ul>
+		<ul class="grid-100">
+		{% static "plan/" as img_path %}
 		{% for plan in plan_list %}
-			<li class="grid-33 tablet-grid-50 grid-container">
-			<div class="grid-100"><a href="{% url 'details' plan.number %}">{{ plan.number }}</a></div>
-			<div class="grid-50"><p>{{ plan.number }}</p></div>
-			<div class="grid-50"><p>{{ plan.area }} Sq. Ft.</p></div>
-			<div class="grid-33"><p>{{ plan.bed }} Beds</p></div>
-			<div class="grid-33"><p>{{ plan.bath }} Baths</p></div>
-			<div class="grid-33"><p>{{ plan.garage }} Garage</p></div>
-			</li>
+					<div class="grid-33">
+						<div class="plan-block">
+							<a class="grid-100" href="/plan/{{ plan.number }}">
+								<li class="grid-100">
+									<img class="grid-100" src="{{ img_path }}{{ plan.elevation_file }}" alt="Plan {{ plan.number }} Elevation" />
+									<span class="grid-50 tablet-grid-50 mobile-grid-50">Plan {{ plan.number }}</span>
+									<span class="grid-50 tablet-grid-50 mobile-grid-50">{{ plan.area }} Sq. Ft.</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }}<br>{% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }}<br>{% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }}<br>{% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
+								</li>
+							</a>
+						</div>
+					</div>
 		{% endfor %}
 		</ul>
 	{% else %}
-		<strong>No plans match your search. Please broaden your search criteria and try again.</strong><br />
+		<strong>No plans matched your search. Please broaden your criteria and try again.</strong><br />
 	{% endif %}	
 </div>
 {% endblock results %}

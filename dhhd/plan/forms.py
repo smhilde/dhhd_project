@@ -1,6 +1,7 @@
 from django import forms
 from plan.models import Plan, SpecialFeature, UserProfile
 from django.contrib.auth.models import User
+from django.forms import widgets
 
 class PlanForm(forms.Form):
 	number   = forms.IntegerField(label='Plan Number', required=False)
@@ -10,9 +11,11 @@ class PlanForm(forms.Form):
 	max_bed  = forms.FloatField(label='Max Bedrooms', required=False)
 	min_bath = forms.FloatField(label='Min Bathrooms', required=False)
 	max_bath = forms.FloatField(label='Max Bathrooms', required=False)
-	floor    = forms.FloatField(label='# of Floors', required=False)
-	garage   = forms.FloatField(label='# Car Garage', required=False)
-	features = forms.ModelMultipleChoiceField(queryset=SpecialFeature.objects.all(), required=False)
+	min_floor  = forms.FloatField(label='Min Floors', required=False)
+	max_floor  = forms.FloatField(label='Max Floors', required=False)
+	min_garage = forms.FloatField(label='Min Garage', required=False)
+	max_garage = forms.FloatField(label='Max Garage', required=False)
+	features = forms.ModelMultipleChoiceField(queryset=SpecialFeature.objects.all(), required=False, widget=widgets.CheckboxSelectMultiple)
 	
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())

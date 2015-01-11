@@ -19,20 +19,12 @@
 {% block body %}
 	<div class="grid-100 grid-parent">
 		<div class="grid-100 ">
-		<section class="img-rotator grid-100">
+		<section class="img-rotator outlined grid-100">
 				<figure class="grid-66">
 					<img src="{% static 'images/index_image_oct04.jpg' %}" alt="home page image" />
 				</figure>
 				<div class="grid-33">
-					{% if user.is_authenticated %}
-						{% if user.first_name %}
-							<h2>Welcome home, {{ user.first_name }}.</h2>
-						{% else %}
-							<h2>Welcome home, {{ user.username }}.</h2>
-						{% endif %}
-					{% else %}
-						<h2>Welcome home.</h2>
-					{% endif %}
+					<h2>Welcome home.</h2>
 					<p>Your home is a place of rest, of growing, of entertaining, of living. When you design a house, its so much more than arranging rooms on paper. Its moulding a place for you
 					to experience life the way you live it. We invite you to browse our plans on this site. Save those that have things you like, and gather other ideas. Then, come visit us. We'll talk about
 					what you want in a home, and how we can design a home around the way you live.</p>
@@ -43,7 +35,7 @@
 	
 	<div class="grid-100 grid-parent">
 		<div class="grid-33 tablet-grid-50 mobile-grid-100">
-			<section class="featured">
+			<section class="featured outlined">
 				{% if popular_plans %}
 					<h1 class="grid-100">Most Viewed Plans</h1>
 					<ul class="grid-100">
@@ -52,12 +44,12 @@
 						<div class="plan-block">
 							<a class="grid-100" href="/plan/{{ plan.number }}">
 								<li class="grid-100">
-									<img class="grid-100" src="{{ img_path }}{{ plan.number }}_elev.jpg" alt="Plan {{ plan.number }} Elevation" />
+									<img class="grid-100" src="{{ img_path }}{{ plan.elevation_file }}" alt="Plan {{ plan.number }} Elevation" />
 									<span class="grid-50 tablet-grid-50 mobile-grid-50">Plan {{ plan.number }}</span>
 									<span class="grid-50 tablet-grid-50 mobile-grid-50">{{ plan.area }} Sq. Ft.</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }} {% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }} {% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }} {% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }}<br />{% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }}<br />{% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }}<br />{% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
 								</li>
 							</a>
 						</div>
@@ -69,7 +61,7 @@
 			</section>
 		</div>
 		<div class="grid-33 tablet-grid-50 mobile-grid-100">
-			<section class="featured">
+			<section class="featured outlined">
 				{% if recent_plans %}
 					<h1 class="grid-100">Recently Added Plans</h1>
 					<ul class="grid-100">
@@ -78,12 +70,12 @@
 						<div class="plan-block">
 							<a class="grid-100" href="/plan/{{ plan.number }}">
 								<li class="grid-100">
-									<img class="grid-100" src="{{ img_path }}{{ plan.number }}_elev.jpg" alt="Plan {{ plan.number }} Elevation" />
+									<img class="grid-100" src="{{ img_path }}{{ plan.elevation_file }}" alt="Plan {{ plan.number }} Elevation" />
 									<span class="grid-50 tablet-grid-50 mobile-grid-50">Plan {{ plan.number }}</span>
 									<span class="grid-50 tablet-grid-50 mobile-grid-50">{{ plan.area }} Sq. Ft.</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }} {% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }} {% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }} {% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }}<br />{% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }}<br />{% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
+									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }}<br />{% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
 								</li>
 							</a>
 						</div>
@@ -95,15 +87,15 @@
 			</section>
 		</div>
 		<div class="grid-33 tablet-grid-100">
-			<section class="featured">
+			<section class="featured outlined">
 				<h1 class="grid-100">Visit Us</h1>
 				<iframe
-					class="grid-100"
+					class="outlined grid-100"
 					height="450"
 					width="100%"
 					frameborder="0"
 					style="border:0"
-					src="https://www.google.com/maps/embed/v1/place?q=Don+Hildebrand+Home+Designer,+West+33rd+Street,+Edmond,+OK,+United+States
+					src="https://www.google.com/maps/embed/v1/place?q=Don+Hildebrand+Home+Designer,+1701+West+33rd+Street,+Edmond,+OK,+United+States
 						&key=AIzaSyBGx-jjwrghNMI9QZmL-4lvjHKkPu3jjQU
 						&attribution_source=Don+Hildebrand+Home+Designs
 						&attribution_web_url=http://www.donhildebrandhomedesigns.com">

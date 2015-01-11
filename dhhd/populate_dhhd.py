@@ -56,6 +56,7 @@ def populate():
 				bath=float(plan['Baths']),
 				floor=int(plan['Floors']),
 				garage=int(plan['Garage']),
+				living=int(plan['Living Areas']),
 				width=width,
 				depth=depth,
 				price=float(plan['Price']),
@@ -67,10 +68,10 @@ def populate():
 	for feature in SpecialFeature.objects.all():
 		print(feature)
 	
-	for plan in Plan.objects.all():
-		print(plan)
+	#for plan in Plan.objects.all():
+	#	print(plan)
 		
-def add_plan(num, title=None, area=0, bed=2, bath=2.5, floor=1, garage=2, width=None, depth=None, height=None, ceiling=9, price=1000, pub_date=timezone.now(), views=0, likes=0, elevation_file='', floorplan_file='', planfeatures=(), plancustomers=()):
+def add_plan(num, title=None, area=0, bed=2, bath=2.5, floor=1, garage=2, living=1, width=None, depth=None, height=None, ceiling=9, price=1000, pub_date=timezone.now(), views=0, likes=0, elevation_file='', floorplan_file='', planfeatures=(), plancustomers=()):
 	p = Plan.objects.get_or_create(
 		number=num,
 		title = title,
@@ -79,6 +80,7 @@ def add_plan(num, title=None, area=0, bed=2, bath=2.5, floor=1, garage=2, width=
 		bath = bath,
 		floor = floor,
 		garage = garage,
+		living = living,
 		width = width,
 		depth = depth,
 		height = height,
@@ -95,6 +97,7 @@ def add_plan(num, title=None, area=0, bed=2, bath=2.5, floor=1, garage=2, width=
 		p.features.add(item)
 	for item in plancustomers:
 		p.customers.add(item)
+	print(p)
 	return p
 
 def add_feature(room, feature):
