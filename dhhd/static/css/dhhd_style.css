@@ -235,3 +235,9 @@ p.copyright {
 .plan_details p {
 	margin-bottom: 0.2em;
 }
+.registration img{
+	margin: 1.0em 0;
+}
+.login img{
+	margin: 1.0em 7em;
+}

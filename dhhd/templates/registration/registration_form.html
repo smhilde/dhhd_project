@@ -1,15 +1,48 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block body %}
-<div class="grid-100">
-	<h2>Register Here</h2>
-		<form method="post" action=".">
-		{% csrf_token %}
-		{{ form.as_p }}
-		
-		<input type="submit" value="Register" />
-		</form>
-	
-	<p>Already have an account? <a href="{% url 'auth_login' %}">Log in.</a></p>
+<div class="grid-100 grid-parent">
+	<div class="grid-100">
+		<section class="featured outlined grid-100">
+		<div class="grid-33">
+			<h1>Register Here</h1>
+			<form method="post" action=".">
+				{{ form.non_field_errors }}
+				{% csrf_token %}
+					<p class="required grid-50">
+					{{ form.username.label_tag }}<br>
+					{{ form.username }}
+					</p>
+					<p class="required grid-50">
+					{{ form.email.label_tag }}<br>
+					{{ form.email }}
+					</p>
+					<p class="required grid-50">
+					{{ form.password1.label_tag }}<br>
+					{{ form.password1 }}
+					</p>
+					<p class="required grid-50">
+					{{ form.password2.label_tag }}<br>
+					{{ form.password2 }}
+					</p>
+					<p class="grid-50">
+					{{ form.first_name.label_tag }}<br>
+					{{ form.first_name }}
+					</p>
+					<p class="grid-50">
+					{{ form.last_name.label_tag }}<br>
+					{{ form.last_name }}
+					</p>
+				<input type="submit" value="Register" />
+			</form>
+			<p>Already have an account? <a href="{% url 'auth_login' %}">Login.</a></p>
+		</div>
+		<div class="grid-66">
+			<figure class="registration">
+				<img src="{% static 'images/20141227_111547.jpg' %}" alt="Prairie Style House in Snow" />
+			</figure>
+		</div>
+		</section>
+	</div>
 </div>
 {% endblock body %}

@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
             model_name='plan',
             name='number',
             field=models.CharField(verbose_name='Plan Number', unique=True, max_length=50),
-            preserve_default=True,
+            #preserve_default=True,
         ),
         migrations.AlterField(
             model_name='plan',
             name='title',
             field=models.CharField(null=True, unique=True, max_length=100),
-            preserve_default=True,
+            #preserve_default=True,
         ),
     ]

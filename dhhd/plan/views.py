@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 from endless_pagination.decorators import page_template
-from plan.models import Plan, SpecialFeature, UserProfile
+from plan.models import Plan, SpecialFeature, UserProfile, User
 from plan.forms import PlanForm, UserForm, UserProfileForm
 
 def index(request):
@@ -52,12 +53,56 @@ def index(request):
 		
 		form = PlanForm()
 	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
-	
-def details(request, plan_number):
 
+
+def index2(request):
+	if request.GET:
+		form = PlanForm(request.GET)
+		if form.is_valid():
+			plan_list = Plan.objects.all()
+			if form.cleaned_data.get('number'):
+				plan_list = Plan.objects.filter(number__exact=form.cleaned_data['number'])
+				return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
+			if form.cleaned_data.get('min_area'):
+				plan_list = plan_list.filter(area__gte=form.cleaned_data['min_area'])
+			if form.cleaned_data.get('max_area'):
+				plan_list = plan_list.filter(area__lte=form.cleaned_data['max_area'])
+			if form.cleaned_data.get('min_bed'):
+				plan_list = plan_list.filter(bed__gte=form.cleaned_data['min_bed'])
+			if form.cleaned_data.get('max_bed'):
+				plan_list = plan_list.filter(bed__lte=form.cleaned_data['max_bed'])
+			if form.cleaned_data.get('min_bath'):
+				plan_list = plan_list.filter(bath__gte=form.cleaned_data['min_bath'])
+			if form.cleaned_data.get('max_bath'):
+				plan_list = plan_list.filter(bath__lte=form.cleaned_data['max_bath'])
+			if form.cleaned_data.get('min_floor'):
+				plan_list = plan_list.filter(floor__gte=form.cleaned_data['min_floor'])
+			if form.cleaned_data.get('max_floor'):
+				plan_list = plan_list.filter(floor__lte=form.cleaned_data['max_floor'])
+			if form.cleaned_data.get('min_garage'):
+				plan_list = plan_list.filter(garage__gte=form.cleaned_data['min_garage'])
+			if form.cleaned_data.get('max_garage'):
+				plan_list = plan_list.filter(garage__lte=form.cleaned_data['max_garage'])
+			if form.cleaned_data.get('features'):
+				feature_filter = Q()
+				for feature in form.cleaned_data['features']:
+					feature_filter = feature_filter | Q(features__feature__contains=feature)
+				plan_list = plan_list.filter(feature_filter).distinct()
+				
+			plan_list = reformat_plan(plan_list)
+	else:
+		plan_list = Plan.objects.all()
+		plan_list = reformat_plan(plan_list)
+		form = PlanForm()
+	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
+
+
+def details(request, plan_number):
 	#Create a context dict which will be passed to the template rendering engine
 	context_dict = {}
 	context_dict['plan_number'] = plan_number
+	if request.user.is_authenticated():
+		context_dict['user_name'] = request.user.get_username()
 	
 	try:
 		# Can I find a plan with the given number?
@@ -98,7 +143,8 @@ def plan_index(request, template='plan/plan_index.html', extra_context=None):
 		context.update(extra_context)
 	return render_to_response(template, context, context_instance=RequestContext(request))
 """
-	
+
+
 def plan_index(request, template='plan/plan_index.html', page_template='plan/plan_index_page.html'):
 	context = {
 		'plans': Plan.objects.all(),
@@ -107,6 +153,7 @@ def plan_index(request, template='plan/plan_index.html', page_template='plan/pla
 	if request.is_ajax():
 		template = page_template
 	return render_to_response(template, context, context_instance=RequestContext(request))
+
 
 def reformat_plan(plan_list):
 	try:
@@ -130,3 +177,33 @@ def reformat_plan(plan_list):
 				plan_list.bath = int(plan_list.bath)
 	
 	return plan_list
+
+@login_required
+def like_plan(request):
+	"""
+	if request.user.is_authenticated():
+		user_name = request.user.get_username()
+		user = User.objects.get(username=user_name)
+		profile = UserProfile.objects.get(user=user)
+	"""
+	print('IN LIKE_PLAN!!!')
+	print(request.method)
+	
+	user_name = None
+	if request.method == 'GET':
+		user_name = request.GET['user_name']
+		user = User.objects.get(username=user_name)
+		profile = UserProfile.objects.get(user=user)
+		
+	plan_id = None
+	if request.method == 'GET':
+		plan_id = request.GET['plan_id']
+
+	if plan_id:
+		plan = Plan.objects.get(number=plan_id)
+		if plan:
+			plan.likes += 1
+			plan.save()
+			profile.fav_plans.add(plan)
+
+	return HttpResponse('Saved to Favorites')

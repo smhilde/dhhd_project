@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block body %}
+	<div class="grid-100 grid-parent">
+		<div class="grid-100">
+			<section class="featured outlined grid-100">
+				<div class="grid-100"><h3>Filter Plans</h3></div>
+				<form id="plan_form" action='/plan/test2' method="get">
+					{{ form.non_field_errors }}
+					<div class="grid-15">
+						<p>
+							{{ form.number.label_tag }}<br>
+							<input id="id_number" name="number" type="text" maxlength="10" placeholder="Specific Plan Number" class="filter_box" value="{{ form.number.value }}"/>
+						</p>
+					</div>
+					<div class="grid-15">
+						<p>
+							{{ form.min_area.label_tag }}<br>
+							<input id="id_min_area" name="min_area" type="number" maxlength="10" placeholder="Min" class="filter_box" value="{{ form.min_area.value }}" autofocus/>
+							<input id="id_max_area" name="max_area" type="number" maxlength="10" placeholder="Max" class="filter_box" value="{{ form.max_area.value }}" />
+						</p>
+					</div>
+					<div class="grid-15">
+						<p>
+							{{ form.min_bed.label_tag }}<br>
+							<input id="id_min_bed" name="min_bed" type="number" maxlength="10" placeholder="Min" class="filter_box" value="{{ form.min_bed.value }}"/>
+							<input id="id_max_bed" name="max_bed" type="number" maxlength="10" placeholder="Max" class="filter_box" value="{{ form.max_bed.value }}"/>
+						</p>
+					</div>
+					<div class="grid-15">
+						<p>
+							{{ form.min_bath.label_tag }}<br>
+							<input id="id_min_bath" name="min_bath" type="number" maxlength="10" step="0.5" placeholder="Min" class="filter_box" />
+							<input id="id_max_bath" name="max_bath" type="number" maxlength="10" step="0.5" placeholder="Max" class="filter_box" />
+						</p>
+					</div>
+					<div class="grid-15">
+						<p>
+							{{ form.min_floor.label_tag }}<br>
+							<input id="id_min_floor" name="min_floor" type="number" maxlength="10" placeholder="Min" class="filter_box" />
+							<input id="id_max_floor" name="max_floor" type="number" maxlength="10" placeholder="Max" class="filter_box" />
+						</p>
+					</div>
+					<div class="grid-15">
+						<p>
+							{{ form.min_garage.label_tag }}<br>
+							<input id="id_min_garage" name="min_garage" type="number" maxlength="10" placeholder="Min" class="filter_box" />
+							<input id="id_max_garage" name="max_garage" type="number" maxlength="10" placeholder="Max" class="filter_box" />
+						</p>
+					</div>
+					<div class="grid-100">
+						<label>Special Features:</label>
+						{{ form.features.errors }}
+						{{ form.features }}
+					</div>
+					
+					<div class="grid-100">
+						<input type="submit" value="Filter Results" />
+					</div>
+				</form>
+			</section>
+		</div>
+	</div>	
+
+	{% block results %}
+	{% endblock results %}
+{% endblock body %}

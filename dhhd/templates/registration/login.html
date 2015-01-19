@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block body %}
-<div class="grid-100">
-	<h2>Login</h2>
-		<form method="post" action=".">
-		{% csrf_token %}
-		{{ form.as_p }}
+<div class="grid-100 grid-parent">
+	<div class="grid-100">
+		<section class="featured outlined grid-100">
+		<div class="grid-33">
+			<h1>Login Here</h1>
+			<form method="post" action=".">
+				{% csrf_token %}
+				{{ form.as_p }}
 		
-		<input type="submit" value="Log In" />
-		<input type="hidden" name="next" value="{{ next }}" />
-		</form>
-	<p>Forgot your password? <a href="{% url 'auth_password_reset' %}">Change it here.</a></p>
-	<p>Don't have an account? <a href="{% url 'registration_register' %}">Register here.</a></p>
+				<input type="submit" value="Log In" />
+				<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+			<p>Forgot your password? <a href="{% url 'auth_password_reset' %}">Change it here.</a></p>
+			<p>Don't have an account? <a href="{% url 'registration_register' %}">Register here.</a></p>
+		</div>
+		<div class="grid-66">
+			<figure class="login">
+				<img src="{% static 'images/saratoga_farms_exterior_01.jpg' %}" alt="Street view of a house in Saratoga Farms" />
+			</figure>
+		</div>
+		</section>
+	</div>
 </div>
 {% endblock body %}
