@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 class PlanForm(forms.Form):
 	number   = forms.IntegerField(label='Plan Number', required=False)
 	min_area = forms.FloatField(label='Square Feet', required=False)
+	max_area = forms.FloatField(label='Max Area', required=False)
 	min_bed  = forms.FloatField(label='Bedrooms', required=False)
 	max_bed  = forms.FloatField(label='Max Bedrooms', required=False)
 	min_bath = forms.FloatField(label='Bathrooms', required=False)

@@ -103,6 +103,11 @@ def details(request, plan_number):
 	context_dict['plan_number'] = plan_number
 	if request.user.is_authenticated():
 		context_dict['user_name'] = request.user.get_username()
+		user_name = context_dict['user_name']
+		user = User.objects.get(username=user_name)
+		profile = UserProfile.objects.get(user=user)
+		plan_list = profile.fav_plans.all()
+		context_dict['is_favorite'] = plan_number in [plan.number for plan in plan_list]
 	
 	try:
 		# Can I find a plan with the given number?
@@ -186,8 +191,6 @@ def like_plan(request):
 		user = User.objects.get(username=user_name)
 		profile = UserProfile.objects.get(user=user)
 	"""
-	print('IN LIKE_PLAN!!!')
-	print(request.method)
 	
 	user_name = None
 	if request.method == 'GET':

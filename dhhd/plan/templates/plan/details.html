@@ -4,16 +4,21 @@
 
 {% block body %}
 <div class="grid-100 grid-parent">
-	<div class="grid-100 ">
-		<section class="featured outlined grid-100">
+	<div class="grid-100">
+		<section class="featured outlined relative grid-100">
 			{% if plan_object %}
+				{% if is_favorite %}
+					<div class="ribbon-wrapper-green"><div class="ribbon-green">FAVORITE</div></div>
+				{% endif %}
 				<h1>Plan {{ plan_object.number }}</h1>
 				{% if user.is_authenticated %}
-				<p id="favorite_string">
-					<button id="likes" data-planid="{{plan_object.number}}" data-username="{{user_name}}" type="button">
-					Save to Favorites
-					</button>
-				</p>
+					{% if not is_favorite %}
+						<p id="favorite_string">
+						<button id="likes" data-planid="{{plan_object.number}}" data-username="{{user_name}}" type="button">
+							Save to Favorites
+						</button>
+						</p>
+					{% endif %}
 				{% endif %}
 				{% static "plan/" as img_path %}
 				<div class="grid-60 tablet-grid-60 mobile-grid-100 elevation">

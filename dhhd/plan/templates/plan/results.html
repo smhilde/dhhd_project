@@ -2,12 +2,12 @@
 {% load staticfiles %}
 
 {% block results %}
+{% if plan_list %}
 <div class="grid-100 grid-parent search-results">
-	{% if plan_list %}
 		<ul class="grid-100">
 		{% static "plan/" as img_path %}
 		{% for plan in plan_list %}
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50 mobile-grid-100">
 						<div class="plan-block">
 							<a class="grid-100" href="/plan/{{ plan.number }}">
 								<li class="grid-100">
@@ -23,8 +23,15 @@
 					</div>
 		{% endfor %}
 		</ul>
-	{% else %}
-		<strong>No plans matched your search. Please broaden your criteria and try again.</strong><br />
-	{% endif %}	
 </div>
+{% else %}
+<div class="grid-100 grid-parent">
+	<div class="grid-100 ">
+		<section class="error grid-100">
+			<p>No plans matched your search. Please broaden your criteria and try again.</p>
+		</section>
+	</div>
+</div>
+{% endif %}	
+
 {% endblock results %}

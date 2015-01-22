@@ -93,7 +93,6 @@ ul#id_features  li{
 }
 .footer a {
 	color: #4A89AA;
-	font-size: 0.85em;
 }
 .footer a :hover {
 	color: #8DC1DB;
@@ -153,8 +152,8 @@ section.featured {
 	background: #18536F;
 }
 .plan-block img {
-	margin: 0.1em 0;
-	text-align: center;
+	display: block;
+	margin: 0.1em auto;
 }
 .plan-block span {
 	padding: 0.5em;
@@ -178,6 +177,12 @@ section.featured {
 }
 .img-rotator h2 {
 	padding-left: 0.25em;
+}
+.img-rotator img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #888;
 }
 .auth{
 	text-align: right;
@@ -240,4 +245,149 @@ p.copyright {
 }
 .login img{
 	margin: 1.0em 7em;
+}
+.error.grid-100 p {
+	background-color: rgba(252, 215, 215, 1);
+	border: 1px solid #FA0404;
+	color: #383838;
+	padding: 1.1em 0;
+	text-align: center;
+}
+.my-plans {
+	margin: 1em 0;
+}
+.ribbon-wrapper-green {
+  width: 115px;
+  height: 115px;
+  overflow: hidden;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.ribbon-green {
+  font: normal 1em 'Josefin Sans';
+  color: #8DC1DB;
+  text-align: center;
+  /* text-shadow: rgba(255,255,255,0.5) 0px 1px 0px; */
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+  position: relative;
+  padding: 7px 0;
+  left: -10px;
+  top: 29px;
+  width: 160px;
+  background-color: #002b40;
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+}
+
+.ribbon-green:before, .ribbon-green:after {
+  content: "";
+  border-top:   3px solid #6e8900;   
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+
+.ribbon-green:before {
+  left: 0;
+}
+.ribbon-green:after {
+  right: 0;
+}
+.relative {
+	position: relative;
+}
+
+@media screen and (max-width: 1090px) {
+	.brand h1 {
+		font-size: 3.5em; 		
+	}
+	.featured h1 {
+		font-size: 2.1875em;	
+	}
+	.plan-block span {
+		font-size: 1.25em;
+	}
+	nav li {
+		font-size: 1.75em;
+	}
+	h2 {
+		font-size: 1.6em;
+	}
+	p.auth {
+		font-size: 1.09375em;
+	}
+}
+@media screen and (max-width: 1024px) {
+	nav li {
+		font-size: 1.75em;
+	}
+}
+@media screen and (max-width: 955px) {
+	.brand h1 {
+		font-size: 3em;
+	}
+	.featured h1 {
+		font-size: 1.875em;
+	}
+	.plan-block span {
+		font-size: 1.25em;
+	}
+	nav li {
+		font-size: 1.5em;
+	}
+	h2 {
+		font-size: 1.371429em;
+	}
+	p.auth {
+		font-size: 0.9375em;
+	}
+}
+@media screen and (max-width: 830px) {
+	.brand h1 {
+		font-size: 2.5em;
+	}
+	nav li {
+		font-size: 1.25em;
+	}
+
+}
+@media screen and (max-width: 767px) {
+	.brand h1 {
+		text-align: center;
+	}
+	nav li {
+		display: block;
+		text-align: center;
+		font-size: 1.75em;
+		margin: 0.5em auto;
+		padding-top: 0.25em;
+		padding-bottom: 0.25em;
+		border: 1px solid #222;
+		max-width: 300px;
+		box-shadow: 0 3px 1px -2px #000;
+	}
+	.dream , .design, .dwell {
+		display: block;
+		text-align: center;
+	}
+	.footer span {
+		margin: 0.25em auto;
+	}
+	.footer div {
+		max-width: 200px;
+		margin: 0.75em auto;
+		text-align: center;
+	}
+	.plan-block {
+		max-width: 300px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }

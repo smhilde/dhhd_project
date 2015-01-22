@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block body %}
-<div class="grid-100 grid-parent search-results">
+<div class="grid-100 grid-parent">
+	<div class="grid-100">
+	<section class="featured outlined grid-100">
+		<h1>My Favorite Plans</h1>
 	{% if plan_list %}
 		<ul class="grid-100">
 		{% static "plan/" as img_path %}
 		{% for plan in plan_list %}
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50 mobile-grid-100">
 						<div class="plan-block">
 							<a class="grid-100" href="/plan/{{ plan.number }}">
 								<li class="grid-100">
@@ -23,9 +26,9 @@
 		{% endfor %}
 		</ul>
 	{% else %}
-	<div class="featured outlined grid-parent">
 		<p><strong>You haven't saved any favorite plans yet!</strong></p>
 	{% endif %}	
+	</section>
 	</div>
 </div>
 {% endblock body %}
