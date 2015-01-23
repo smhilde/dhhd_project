@@ -256,6 +256,9 @@ p.copyright {
 .my-plans {
 	margin: 1em 0;
 }
+#favorite_string {
+	text-align: center;
+}
 .ribbon-wrapper-green {
   width: 115px;
   height: 115px;
@@ -323,10 +326,13 @@ p.copyright {
 	p.auth {
 		font-size: 1.09375em;
 	}
-}
-@media screen and (max-width: 1024px) {
-	nav li {
-		font-size: 1.75em;
+	input.filter_box{
+		width: 4.5em;
+	}
+	.plan-block {
+		max-width: 300px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 @media screen and (max-width: 955px) {
@@ -362,6 +368,12 @@ p.copyright {
 	.brand h1 {
 		text-align: center;
 	}
+	.featured h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.75em;
+	}
 	nav li {
 		display: block;
 		text-align: center;
@@ -389,5 +401,21 @@ p.copyright {
 		max-width: 300px;
 		margin-left: auto;
 		margin-right: auto;
+	}
+	.filter {
+		text-align: center;
+		max-width: 300px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	input.filter_box{
+		width: 8.4375em;
+	}
+	ul#id_features li {
+		display: block;
+		text-align: left;
+	}
+	.plan_details {
+		text-align: center;
 	}
 }

@@ -26,32 +26,32 @@
 				</div>
 				<div class="grid-40 tablet-grid-40 mobile-grid-100 plan_details">
 					<h2>Details</h2>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Bedrooms:</em> {{ plan_object.bed }}</p>
 					</div>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Bathrooms:</em> {{ plan_object.bath }}</p>
 					</div>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Living Areas:</em> {{ plan_object.living }}</p>
 					</div>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Sq. Feet:</em> {{ plan_object.area }}</p>
 					</div>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Garage:</em> {{ plan_object.garage }} Car</p>
 					</div>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Floors:</em> {{ plan_object.floor }}</p>
 					</div>
-					<div class="grid-33">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Width:</em> {{ plan_object.width }}</p>
 					</div>
-					<div class="grid-33 suffix-33">
+					<div class="grid-33 suffix-33 tablet-grid-50">
 						<p><em>Depth:</em> {{ plan_object.depth }}</p>
 					</div>
 				{% if plan_features %}
-					<div class="grid-100">
+					<div class="grid-100 tablet-grid-100">
 						<h3>Special Features</h3>
 						<ul>
 							{% for feature in plan_features %}
