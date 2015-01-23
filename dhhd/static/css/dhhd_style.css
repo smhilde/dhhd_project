@@ -240,12 +240,6 @@ p.copyright {
 .plan_details p {
 	margin-bottom: 0.2em;
 }
-.registration img{
-	margin: 1.0em 0;
-}
-.login img{
-	margin: 1.0em 7em;
-}
 .error.grid-100 p {
 	background-color: rgba(252, 215, 215, 1);
 	border: 1px solid #FA0404;
@@ -258,6 +252,13 @@ p.copyright {
 }
 #favorite_string {
 	text-align: center;
+}
+.registration, .login {
+	position: relative;
+}
+.registration img, .login img {
+	display: block;	
+	margin: 2em auto;
 }
 .ribbon-wrapper-green {
   width: 115px;

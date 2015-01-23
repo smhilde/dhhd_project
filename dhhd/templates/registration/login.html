@@ -8,8 +8,17 @@
 			<h1>Login Here</h1>
 			<form method="post" action=".">
 				{% csrf_token %}
-				{{ form.as_p }}
-		
+				{{ form.non_field_errors }}
+				<p>
+				{{ form.username.errors }}
+				{{ form.username.label_tag }}<br>
+				{{ form.username }}
+				</p>
+				<p>
+				{{ form.password.errors }}
+				{{ form.password.label_tag }}<br>
+				{{ form.password }}
+				</p>		
 				<input type="submit" value="Log In" />
 				<input type="hidden" name="next" value="{{ next }}" />
 			</form>
