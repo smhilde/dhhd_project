@@ -1,10 +1,10 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+#from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from endless_pagination.decorators import page_template
+#from endless_pagination.decorators import page_template
 from plan.models import Plan, SpecialFeature, UserProfile, User
 from plan.forms import PlanForm, UserForm, UserProfileForm
 
@@ -42,7 +42,7 @@ def index(request):
 					feature_filter = feature_filter | Q(features__feature__contains=feature)
 				plan_list = plan_list.filter(feature_filter).distinct()
 				#plan_list = plan_list.filter(features__feature__in=form.cleaned_data['features']) # <-- This query is the intersection of the features, and I think that I want the union
-			
+
 			plan_list = reformat_plan(plan_list)
 
 			return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
@@ -50,7 +50,7 @@ def index(request):
 	else:
 		plan_list = Plan.objects.all()
 		plan_list = reformat_plan(plan_list)
-		
+
 		form = PlanForm()
 	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
 
@@ -88,7 +88,7 @@ def index2(request):
 				for feature in form.cleaned_data['features']:
 					feature_filter = feature_filter | Q(features__feature__contains=feature)
 				plan_list = plan_list.filter(feature_filter).distinct()
-				
+
 			plan_list = reformat_plan(plan_list)
 	else:
 		plan_list = Plan.objects.all()
@@ -108,7 +108,7 @@ def details(request, plan_number):
 		profile = UserProfile.objects.get(user=user)
 		plan_list = profile.fav_plans.all()
 		context_dict['is_favorite'] = plan_number in [plan.number for plan in plan_list]
-	
+
 	try:
 		# Can I find a plan with the given number?
 		# If we can't, the .get() method raises a DoesNotExist exception.
@@ -116,27 +116,27 @@ def details(request, plan_number):
 		plan = Plan.objects.get(number=plan_number)
 		plan.views += 1
 		plan.save()
-		
+
 		plan = reformat_plan(plan)
-		
+
 		context_dict['plan_object'] = plan
-		
+
 		plan_features = []
 		for feature in plan.features.all():
 			plan_features.append(feature.feature)
 			# if I wanted to group the features by room, I could change this to find
 			# all of the rooms in the features, and then for every room extract the feature.
-			# For now, I just want the features, as this seems to be more reasonable if the 
-			# number of features are small. The features will have to be more descriptive. 
+			# For now, I just want the features, as this seems to be more reasonable if the
+			# number of features are small. The features will have to be more descriptive.
 			# If I keep this set up, its probably best to change the SpecialFeature model.
-			
+
 		if plan_features:
 			context_dict['plan_features'] = plan_features
-		
+
 	except Plan.DoesNotExist:
 		pass
-	
-	return render(request, 'plan/details.html', context_dict)		
+
+	return render(request, 'plan/details.html', context_dict)
 
 """
 @page_template('plan/plan_index_page.html')
@@ -180,7 +180,7 @@ def reformat_plan(plan_list):
 			# Re-format bathrooms to int if the number of bathrooms is whole
 			if not plan_list.bath%1:
 				plan_list.bath = int(plan_list.bath)
-	
+
 	return plan_list
 
 @login_required
@@ -191,13 +191,13 @@ def like_plan(request):
 		user = User.objects.get(username=user_name)
 		profile = UserProfile.objects.get(user=user)
 	"""
-	
+
 	user_name = None
 	if request.method == 'GET':
 		user_name = request.GET['user_name']
 		user = User.objects.get(username=user_name)
 		profile = UserProfile.objects.get(user=user)
-		
+
 	plan_id = None
 	if request.method == 'GET':
 		plan_id = request.GET['plan_id']
