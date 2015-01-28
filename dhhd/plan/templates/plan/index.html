@@ -44,11 +44,25 @@
 							<input id="id_max_floor" name="max_floor" type="number" maxlength="10" placeholder="Max" class="filter_box" value="{{ form.max_floor.value }}"/>
 						</p>
 					</div>
-					<div class="filter grid-15 tablet-grid-25 tablet-suffix-50">
+					<div class="filter grid-15 tablet-grid-25">
 						<p>
 							{{ form.min_garage.label_tag }}<br>
 							<input id="id_min_garage" name="min_garage" type="number" maxlength="10" placeholder="Min" class="filter_box" value="{{ form.min_garage.value }}"/>
 							<input id="id_max_garage" name="max_garage" type="number" maxlength="10" placeholder="Max" class="filter_box" value="{{ form.max_garage.value }}"/>
+						</p>
+					</div>
+					<div class="filter grid-15 prefix-15 tablet-grid-25">
+						<p>
+							{{ form.min_living.label_tag }}<br>
+							<input id="id_min_living" name="min_living" type="number" maxlength="10" placeholder="Min" class="filter_box" value="{{ form.min_living.value }}"/>
+							<input id="id_max_living" name="max_living" type="number" maxlength="10" placeholder="Max" class="filter_box" value="{{ form.max_living.value }}"/>
+						</p>
+					</div>
+					<div class="filter grid-15 suffix-55 tablet-grid-25">
+						<p>
+							{{ form.min_width.label_tag }}<br>
+							<input id="id_min_width" name="min_width" type="text" maxlength="10" placeholder="Min ft." class="filter_box" value="{% if form.min_width.value %}{{ form.min_width.value }}{% endif %}"/>
+							<input id="id_max_width" name="max_width" type="text" maxlength="10" placeholder="Max ft." class="filter_box" value="{% if form.max_width.value %}{{ form.max_width.value }}{% endif %}"/>
 						</p>
 					</div>
 					<div class="filter grid-100">

@@ -59,7 +59,7 @@ address {
 input.filter_box{
 	width: 5em;
 }
-input[type="text"].filter_box {
+input[type="text"]#id_number.filter_box {
 	width: 11em;
 }
 input[type="submit"] {

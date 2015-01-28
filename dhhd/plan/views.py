@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 #from endless_pagination.decorators import page_template
 from plan.models import Plan, SpecialFeature, UserProfile, User
 from plan.forms import PlanForm, UserForm, UserProfileForm
+import re
 
 def index(request):
 	if request.method == 'POST':
@@ -58,7 +59,9 @@ def index(request):
 def index2(request):
 	if request.GET:
 		form = PlanForm(request.GET)
+		plan_list = None
 		if form.is_valid():
+			distance_pattern = re.compile("(?P<feet>\d+)\D+(?P<inches>\d+)")
 			plan_list = Plan.objects.all()
 			if form.cleaned_data.get('number'):
 				plan_list = Plan.objects.filter(number__exact=form.cleaned_data['number'])
@@ -83,6 +86,41 @@ def index2(request):
 				plan_list = plan_list.filter(garage__gte=form.cleaned_data['min_garage'])
 			if form.cleaned_data.get('max_garage'):
 				plan_list = plan_list.filter(garage__lte=form.cleaned_data['max_garage'])
+			if form.cleaned_data.get('min_living'):
+				plan_list = plan_list.filter(living__gte=form.cleaned_data['min_living'])
+			if form.cleaned_data.get('max_living'):
+				plan_list = plan_list.filter(living__lte=form.cleaned_data['max_living'])
+			
+			if form.cleaned_data.get('min_width'):
+				try:
+					try:
+						wdth = float(form.cleaned_data['min_width'])
+					except:
+						try:
+							w = distance_pattern.search(form.cleaned_data['min_width'])
+							wdth = int(w.group('feet')) + float(w.group('inches'))/12
+						except:
+							w = re.search('(\d+)',form.cleaned_data['min_width'])
+							wdth = float(w.group(0))
+				except:
+					wdth = 0
+				plan_list = plan_list.filter(width__gte=wdth)
+				
+			if form.cleaned_data.get('max_width'):
+				try:
+					try:
+						wdth = float(form.cleaned_data['max_width'])
+					except:
+						try:
+							w = distance_pattern.search(form.cleaned_data['max_width'])
+							wdth = int(w.group('feet')) + float(w.group('inches'))/12
+						except:
+							w = re.search('(\d+)',form.cleaned_data['min_width'])
+							wdth = float(w.group(0))
+				except:
+					wdth = 1e6	
+				plan_list = plan_list.filter(width__lte=wdth)
+			
 			if form.cleaned_data.get('features'):
 				feature_filter = Q()
 				for feature in form.cleaned_data['features']:
@@ -90,8 +128,9 @@ def index2(request):
 				plan_list = plan_list.filter(feature_filter).distinct()
 
 			plan_list = reformat_plan(plan_list)
+			plan_list = plan_list.order_by('area')
 	else:
-		plan_list = Plan.objects.all()
+		plan_list = Plan.objects.all().order_by('area')
 		plan_list = reformat_plan(plan_list)
 		form = PlanForm()
 	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})

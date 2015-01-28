@@ -6,7 +6,7 @@ from registration.forms import RegistrationFormUniqueEmail, RegistrationFormTerm
 from django.utils.translation import ugettext_lazy as _
 
 class PlanForm(forms.Form):
-	number   = forms.IntegerField(label='Plan Number', required=False)
+	number   = forms.CharField(label='Plan Number', required=False)
 	min_area = forms.FloatField(label='Square Feet', required=False)
 	max_area = forms.FloatField(label='Max Area', required=False)
 	min_bed  = forms.FloatField(label='Bedrooms', required=False)
@@ -17,6 +17,10 @@ class PlanForm(forms.Form):
 	max_floor  = forms.FloatField(label='Max Floors', required=False)
 	min_garage = forms.FloatField(label='Garages', required=False)
 	max_garage = forms.FloatField(label='Max Garage', required=False)
+	min_living = forms.FloatField(label='Living Areas', required=False)
+	max_living = forms.FloatField(label='Max Living', required=False)
+	min_width  = forms.CharField(label='House Width', required=False)
+	max_width  = forms.CharField(label='', required=False)
 	features = forms.ModelMultipleChoiceField(queryset=SpecialFeature.objects.all(), required=False, widget=widgets.CheckboxSelectMultiple)
 	
 class UserForm(forms.ModelForm):
