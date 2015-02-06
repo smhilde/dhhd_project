@@ -10,6 +10,13 @@
 				{% if is_favorite %}
 					<div class="ribbon-wrapper-green"><div class="ribbon-green">FAVORITE</div></div>
 				{% endif %}
+				<!-- TODO: I don't think that this is realistically implementable. 
+				<a href="{{ back_page }}">
+				<div class="button back">
+					<p>&lt</p>
+				</div>
+				</a>
+				-->
 				<h1>Plan {{ plan_object.number }}</h1>
 				{% if user.is_authenticated %}
 					{% if not is_favorite %}
@@ -21,10 +28,11 @@
 					{% endif %}
 				{% endif %}
 				{% static "plan/" as img_path %}
-				<div class="grid-60 tablet-grid-60 mobile-grid-100 elevation">
+				<div class="grid-60 tablet-grid-100 mobile-grid-100 elevation">
 					<img src="{{ img_path }}{{ plan_object.elevation_file }}" alt="plan elevation" />
 				</div>
-				<div class="grid-40 tablet-grid-40 mobile-grid-100 plan_details">
+				<div class="grid-40 tablet-grid-100 mobile-grid-100 grid-parent">
+					<div class="grid-100 tablet-grid-50 plan_details">
 					<h2>Details</h2>
 					<div class="grid-33 tablet-grid-50">
 						<p><em>Bedrooms:</em> {{ plan_object.bed }}</p>
@@ -47,11 +55,16 @@
 					<div class="grid-33 tablet-grid-50">
 						<p><em>Width:</em> {{ plan_object.width }}</p>
 					</div>
-					<div class="grid-33 suffix-33 tablet-grid-50">
+					<div class="grid-33 tablet-grid-50">
 						<p><em>Depth:</em> {{ plan_object.depth }}</p>
 					</div>
+					<div class="grid-33 tablet-grid-50 tablet-suffix-50">
+						<p><em>Price:</em> {{ plan_object.price }}</p>
+					</div>
+					</div>
 				{% if plan_features %}
-					<div class="grid-100 tablet-grid-100">
+					<div class="grid-100 tablet-grid-50 grid-parent">
+					<div class="grid-100 plan_details">
 						<h3>Special Features</h3>
 						<ul>
 							{% for feature in plan_features %}
@@ -61,18 +74,27 @@
 							{% endfor %}
 						</ul>
 					</div>
+					</div>
 				{% endif %}
+				</div>
+				<div class="grid-100 buy_plan">
+					<form method="post" action="/store/cart/">
+						{% csrf_token %}
+						<input type="hidden" name="plan_number" value="{{ plan_object.number }}"/>
+						<button>Buy Plan</button>
+					</form>
 				</div>
 				<div class="grid-100 tablet-grid-100 mobile-grid-100 floorplan">
 					<img src="{{ img_path }}{{ plan_object.floorplan_file }}" alt="floor plan" />
 				</div>
 			{% else %}
-				<p>Well, we've made a mistake. Plan {{ plan_number }} can't be found in our records.</p><br />
+				<p>Well, we've made a mistake. Plan {{ plan_object.number }} can't be found in our records.</p><br />
 			{% endif %}
 		</section>
 	</div>
 </div>
 
 {% if plan.location %}
+<!-- TODO: Map plan locations. -->
 {% endif %}
 {% endblock body %}

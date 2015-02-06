@@ -260,6 +260,7 @@ p.copyright {
 	display: block;	
 	margin: 2em auto;
 }
+
 .ribbon-wrapper-green {
   width: 115px;
   height: 115px;
@@ -308,6 +309,32 @@ p.copyright {
 	position: relative;
 }
 
+.buy_plan {
+	text-align: center;;
+}
+
+.buy_plan button {
+	width: 250px;
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.5em;
+	color: #c1392b;
+	border: 2px solid #8DC1DB;
+	border-radius: 0;
+	margin: 1em 0;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+	background-image: -webkit-linear-gradient(#ffffff, #dddddd);
+	background-image: -moz-linear-gradient(#ffffff, #dddddd);
+	background-image: -o-linear-gradient(#ffffff, #dddddd);
+	background-image: linear-gradient(#ffffff, #dddddd);
+}
+.buy_plan button:hover {
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
+	background-image: -webkit-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	background-image: -moz-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	background-image: -o-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	background-image: linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	border-color: #4A89AA;
+}
 @media screen and (max-width: 1090px) {
 	.brand h1 {
 		font-size: 3.5em; 		
@@ -335,6 +362,10 @@ p.copyright {
 		margin-left: auto;
 		margin-right: auto;
 	}
+	.plan_details h3 {
+		padding-top: 0.5em;
+		margin-top: 0.25em;
+	}
 }
 @media screen and (max-width: 955px) {
 	.brand h1 {
@@ -349,8 +380,12 @@ p.copyright {
 	nav li {
 		font-size: 1.5em;
 	}
-	h2 {
+	h2, h3 {
 		font-size: 1.371429em;
+	}
+	.plan_details h3 {
+		padding-top: 0.5em;
+		margin-top: 0.25em;
 	}
 	p.auth {
 		font-size: 0.9375em;
@@ -372,7 +407,7 @@ p.copyright {
 	.featured h1 {
 		font-size: 2em;
 	}
-	h2 {
+	h2, h3 {
 		font-size: 1.75em;
 	}
 	nav li {

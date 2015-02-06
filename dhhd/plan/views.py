@@ -9,54 +9,8 @@ from plan.models import Plan, SpecialFeature, UserProfile, User
 from plan.forms import PlanForm, UserForm, UserProfileForm
 import re
 
+
 def index(request):
-	if request.method == 'POST':
-		form = PlanForm(request.POST)
-		if form.is_valid():
-			plan_list = Plan.objects.all()
-			if form.cleaned_data.get('number'):
-				plan_list = Plan.objects.filter(number__exact=form.cleaned_data['number'])
-				return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
-			if form.cleaned_data.get('min_area'):
-				plan_list = plan_list.filter(area__gte=form.cleaned_data['min_area'])
-			if form.cleaned_data.get('max_area'):
-				plan_list = plan_list.filter(area__lte=form.cleaned_data['max_area'])
-			if form.cleaned_data.get('min_bed'):
-				plan_list = plan_list.filter(bed__gte=form.cleaned_data['min_bed'])
-			if form.cleaned_data.get('max_bed'):
-				plan_list = plan_list.filter(bed__lte=form.cleaned_data['max_bed'])
-			if form.cleaned_data.get('min_bath'):
-				plan_list = plan_list.filter(bath__gte=form.cleaned_data['min_bath'])
-			if form.cleaned_data.get('max_bath'):
-				plan_list = plan_list.filter(bath__lte=form.cleaned_data['max_bath'])
-			if form.cleaned_data.get('min_floor'):
-				plan_list = plan_list.filter(floor__gte=form.cleaned_data['min_floor'])
-			if form.cleaned_data.get('max_floor'):
-				plan_list = plan_list.filter(floor__lte=form.cleaned_data['max_floor'])
-			if form.cleaned_data.get('min_garage'):
-				plan_list = plan_list.filter(garage__gte=form.cleaned_data['min_garage'])
-			if form.cleaned_data.get('max_garage'):
-				plan_list = plan_list.filter(garage__lte=form.cleaned_data['max_garage'])
-			if form.cleaned_data.get('features'):
-				feature_filter = Q()
-				for feature in form.cleaned_data['features']:
-					feature_filter = feature_filter | Q(features__feature__contains=feature)
-				plan_list = plan_list.filter(feature_filter).distinct()
-				#plan_list = plan_list.filter(features__feature__in=form.cleaned_data['features']) # <-- This query is the intersection of the features, and I think that I want the union
-
-			plan_list = reformat_plan(plan_list)
-
-			return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
-
-	else:
-		plan_list = Plan.objects.all()
-		plan_list = reformat_plan(plan_list)
-
-		form = PlanForm()
-	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})
-
-
-def index2(request):
 	if request.GET:
 		form = PlanForm(request.GET)
 		plan_list = None
@@ -139,6 +93,10 @@ def index2(request):
 def details(request, plan_number):
 	#Create a context dict which will be passed to the template rendering engine
 	context_dict = {}
+	#context_dict['back_page'] = request.META['HTTP_REFERER']
+	#for key in request.META.keys():
+	print(request.META['QUERY_STRING'])
+	print(request.META['PATH'])
 	context_dict['plan_number'] = plan_number
 	if request.user.is_authenticated():
 		context_dict['user_name'] = request.user.get_username()
@@ -188,7 +146,7 @@ def plan_index(request, template='plan/plan_index.html', extra_context=None):
 	return render_to_response(template, context, context_instance=RequestContext(request))
 """
 
-
+"""
 def plan_index(request, template='plan/plan_index.html', page_template='plan/plan_index_page.html'):
 	context = {
 		'plans': Plan.objects.all(),
@@ -197,8 +155,15 @@ def plan_index(request, template='plan/plan_index.html', page_template='plan/pla
 	if request.is_ajax():
 		template = page_template
 	return render_to_response(template, context, context_instance=RequestContext(request))
+"""
 
+# TODO: MOVE TO STORE
+def cart(request):
+	return render(request, 'plan/cart.html', {})
 
+def checkout(request):
+	return render(request, 'plan/checkout.html', {})
+	
 def reformat_plan(plan_list):
 	try:
 		for plan in plan_list:
@@ -207,6 +172,8 @@ def reformat_plan(plan_list):
 			plan.depth = str(int(plan.depth)) + "'-" + str(round((plan.depth - int(plan.depth))*12)) + '"'
 			# Re-format bedrooms from float to int
 			plan.bed = int(plan.bed)
+			# Re-format price to string with format $XXXX.YY
+			plan.price = '${:.2f}'.format(plan.price)
 			# Re-format bathrooms to int if the number of bathrooms is whole
 			if not plan.bath%1:
 				plan.bath = int(plan.bath)
@@ -216,6 +183,8 @@ def reformat_plan(plan_list):
 			plan_list.depth = str(int(plan_list.depth)) + "'-" + str(round((plan_list.depth - int(plan_list.depth))*12)) + '"'
 			# Re-format bedrooms from float to int
 			plan_list.bed = int(plan_list.bed)
+			# Re-format price to string with format $XXXX.YY
+			plan_list.price = '${:.2f}'.format(plan_list.price)
 			# Re-format bathrooms to int if the number of bathrooms is whole
 			if not plan_list.bath%1:
 				plan_list.bath = int(plan_list.bath)

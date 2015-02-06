@@ -17,14 +17,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd@e6cu$htv#86cu_le&8+a=l*^@lp#v7+gcwhtqk2(2ce-2k3*'
+with open('sk.txt') as f:
+	SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hildebrew.pythonanywhere.com', 'donhildebrandhomedesigns.com', '127.0.0.1']
 
 
 # Application definition
@@ -38,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 	'plan',
 	'registration',
-	'endless_pagination',
+#	'endless_pagination',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,6 +93,7 @@ USE_TZ = True
 STATIC_PATH = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
 STATICFILES_DIRS = (
 	STATIC_PATH,
