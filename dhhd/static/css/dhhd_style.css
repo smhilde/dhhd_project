@@ -327,6 +327,7 @@ p.copyright {
 	background-image: -o-linear-gradient(#ffffff, #dddddd);
 	background-image: linear-gradient(#ffffff, #dddddd);
 }
+
 .buy_plan button:hover {
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
 	background-image: -webkit-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
@@ -334,6 +335,38 @@ p.copyright {
 	background-image: -o-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	background-image: linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	border-color: #4A89AA;
+}
+
+.cart-details p {
+	margin: 0;
+}
+
+.shipping {
+	padding-left: 0;
+	margin-top: 0;
+}
+
+.shipping section {
+	padding-left: 30px;
+	margin-top: 0;
+}
+
+.payment {
+	padding-right: 0;
+	margin-top: 0;
+}
+.payment section {
+	padding-left: 30px;
+	margin-top: 0;
+}
+
+.form-row {
+	margin-bottom: 1em;
+}
+
+.errorlist, .payment-errors {
+	color: #ff0000;
+	font-style: italic;
 }
 @media screen and (max-width: 1090px) {
 	.brand h1 {

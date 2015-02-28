@@ -93,10 +93,6 @@ def index(request):
 def details(request, plan_number):
 	#Create a context dict which will be passed to the template rendering engine
 	context_dict = {}
-	#context_dict['back_page'] = request.META['HTTP_REFERER']
-	#for key in request.META.keys():
-	print(request.META['QUERY_STRING'])
-	print(request.META['PATH'])
 	context_dict['plan_number'] = plan_number
 	if request.user.is_authenticated():
 		context_dict['user_name'] = request.user.get_username()
