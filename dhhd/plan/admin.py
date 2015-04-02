@@ -17,7 +17,7 @@ class PlanAdmin(admin.ModelAdmin):
 		(None, 			      {'fields': [('number', 'title'), 'area', ('bed', 'bath', 'living'), ('floor', 'garage', 'ceiling'), 'price']}),
 		('Rendering Details', {'fields': [('elevation_file', 'floorplan_file')]}),
 		('Footprint Details', {'fields': [('width', 'depth', 'height')], 'classes': ('collapse')}),
-		('Date Information',  {'fields': ['pub_date'], 'classes': ('collapse')}),
+		('Date Information',  {'fields': [('pub_date', 'active')], 'classes': ('collapse')}),
 		('Social Tracking',   {'fields': [('views', 'likes')], 'classes': ('collapse')}),
 	]
 	

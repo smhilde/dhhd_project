@@ -15,7 +15,7 @@ class Plan(models.Model):
 	depth = models.FloatField('House Depth', null=True)
 	height = models.FloatField('House Height', null=True)
 	ceiling = models.FloatField('Ceiling Height', null=True)
-	price = models.FloatField('Plan Price', null=True)
+	price = models.CharField('Plan Price', max_length=4, null=True)
 	pub_date = models.DateTimeField('Date Published', default=timezone.now)
 	views = models.IntegerField(default=0)
 	likes = models.IntegerField(default=0)
@@ -23,6 +23,7 @@ class Plan(models.Model):
 	customers = models.ManyToManyField("Customer", null=True)
 	elevation_file = models.CharField('Elevation File', max_length=100)
 	floorplan_file = models.CharField('Floor Plan File', max_length=100)
+	active = models.BooleanField('Plan Active', default=False)
 	
 	def __str__(self):
 		return '{}'.format(self.number)

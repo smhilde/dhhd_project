@@ -1,3 +1,5 @@
+import re
+
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.db.models import Q
@@ -5,10 +7,10 @@ from django.db.models import Q
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 #from endless_pagination.decorators import page_template
+
 from plan.models import Plan, SpecialFeature, UserProfile, User
 from plan.forms import PlanForm, UserForm, UserProfileForm
-import re
-
+import plan.prices
 
 def index(request):
 	if request.GET:
@@ -153,13 +155,6 @@ def plan_index(request, template='plan/plan_index.html', page_template='plan/pla
 	return render_to_response(template, context, context_instance=RequestContext(request))
 """
 
-# TODO: MOVE TO STORE
-def cart(request):
-	return render(request, 'plan/cart.html', {})
-
-def checkout(request):
-	return render(request, 'plan/checkout.html', {})
-	
 def reformat_plan(plan_list):
 	try:
 		for plan in plan_list:
@@ -169,7 +164,7 @@ def reformat_plan(plan_list):
 			# Re-format bedrooms from float to int
 			plan.bed = int(plan.bed)
 			# Re-format price to string with format $XXXX.YY
-			plan.price = '${:.2f}'.format(plan.price)
+			plan.price = '${:.2f}'.format(get_price(plan.price))
 			# Re-format bathrooms to int if the number of bathrooms is whole
 			if not plan.bath%1:
 				plan.bath = int(plan.bath)
@@ -180,13 +175,16 @@ def reformat_plan(plan_list):
 			# Re-format bedrooms from float to int
 			plan_list.bed = int(plan_list.bed)
 			# Re-format price to string with format $XXXX.YY
-			plan_list.price = '${:.2f}'.format(plan_list.price)
+			plan_list.price = '${:.2f}'.format(get_price(plan_list.price))
 			# Re-format bathrooms to int if the number of bathrooms is whole
 			if not plan_list.bath%1:
 				plan_list.bath = int(plan_list.bath)
 
 	return plan_list
 
+def get_price(price_code):
+	return plan.prices.price.get(price_code)
+	
 @login_required
 def like_plan(request):
 	"""
