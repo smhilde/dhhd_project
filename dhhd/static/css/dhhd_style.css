@@ -98,7 +98,7 @@ ul#id_features  li{
 	color: #8DC1DB;
 }
 .brand {
-	background-color: #fff7d9; /* #fff0a5; rgba(236, 223, 205, 1);*/
+	background-color: #fff7d9;
 	color: #c1392b;
 	position: relative;
 	margin-top: 1em;
@@ -106,7 +106,7 @@ ul#id_features  li{
 .brand h1 {
 	font-weight: 400;
 	font-size: 4em;
-	margin: 0em 0em 0.6em 0;em
+	margin: 0em 0em 0.6em 0em;
 	display: inline;
 }
 .brand p {
@@ -313,7 +313,7 @@ p.copyright {
 	text-align: center;;
 }
 
-.buy_plan button {
+.buy_plan button, .endless_page_link {
 	width: 250px;
 	font-family: 'Josefin Sans', sans-serif;
 	font-size: 1.5em;
@@ -328,13 +328,37 @@ p.copyright {
 	background-image: linear-gradient(#ffffff, #dddddd);
 }
 
-.buy_plan button:hover {
+.buy_plan button:hover, .endless_page_link:hover {
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
 	background-image: -webkit-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	background-image: -moz-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	background-image: -o-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	background-image: linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	border-color: #4A89AA;
+}
+
+.endless_page_link, .endless_page_current {
+    padding: 0 12px 0 12px;
+}
+
+.endless_page_current {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.5em;
+	color: #c1392b;
+	margin: 1em 0.25em 0 0.2em;
+	border-radius: 0;
+	border: 2px solid #4A89AA;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
+	background-image: -webkit-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	background-image: -moz-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	background-image: -o-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+	background-image: linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+}
+
+
+.endless_page_container {
+    text-align: center;
+    margin-bottom: 0.75em;
 }
 
 .cart-details p {

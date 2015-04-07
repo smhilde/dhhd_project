@@ -1,32 +1,45 @@
 {% extends 'plan/index.html' %}
 {% load staticfiles %}
+{% load endless %}
 
 {% block results %}
 {% if plan_list %}
+{% paginate plan_list %}
 <div class="grid-100 grid-parent search-results">
-		<ul class="grid-100">
-		{% static "plan/" as img_path %}
-		{% for plan in plan_list %}
-					<div class="grid-33 tablet-grid-50 mobile-grid-100">
-						<div class="plan-block">
-							<a class="grid-100" href="/plan/{{ plan.number }}">
-								<li class="grid-100">
-									<img class="grid-100" src="{{ img_path }}{{ plan.elevation_file }}" alt="Plan {{ plan.number }} Elevation" />
-									<span class="grid-50 tablet-grid-50 mobile-grid-50">Plan {{ plan.number }}</span>
-									<span class="grid-50 tablet-grid-50 mobile-grid-50">{{ plan.area }} Sq. Ft.</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }}<br>{% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }}<br>{% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
-									<span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }}<br>{% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
-								</li>
-							</a>
-						</div>
-					</div>
-		{% endfor %}
-		</ul>
+    {% get_pages %}
+    {% if pages.paginated %}
+    <div class="grid-100 endless_page_container">
+        {{ pages }}
+    </div>
+    {% endif %}
+    <ul class="grid-100">
+    {% static "plan/" as img_path %}
+    {% for plan in plan_list %}
+                <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                    <div class="plan-block">
+                        <a class="grid-100" href="/plan/{{ plan.number }}">
+                            <li class="grid-100">
+                                <img class="grid-100" src="{{ img_path }}{{ plan.elevation_file }}" alt="Plan {{ plan.number }} Elevation" />
+                                <span class="grid-50 tablet-grid-50 mobile-grid-50">Plan {{ plan.number }}</span>
+                                <span class="grid-50 tablet-grid-50 mobile-grid-50">{{ plan.area }} Sq. Ft.</span>
+                                <span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bed }}<br>{% if plan.bed == 1%}Bed{% else %}Beds{% endif %}</span>
+                                <span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.bath }}<br>{% if plan.bath == 1%}Bath{% else %}Baths{% endif %}</span>
+                                <span class="grid-33 tablet-grid-33 mobile-grid-33">{{ plan.garage }}<br>{% if plan.garage == 1%}Garage{% else %}Garages{% endif %}</span>
+                            </li>
+                        </a>
+                    </div>
+                </div>
+    {% endfor %}
+    </ul>
+    {% if pages.paginated %}
+    <div class="grid-100 endless_page_container">
+        {{ pages }}
+    </div>
+    {% endif %}
 </div>
 {% else %}
 <div class="grid-100 grid-parent">
-	<div class="grid-100 ">
+	<div class="grid-100">
 		<section class="error grid-100">
 			<p>No plans matched your search. Please broaden your criteria and try again.</p>
 		</section>

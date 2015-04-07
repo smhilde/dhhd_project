@@ -40,7 +40,7 @@ INSTALLED_APPS = (
 	'plan',
 	'store',
 	'registration',
-#	'endless_pagination',
+	'endless_pagination',
 )
 
 MIDDLEWARE_CLASSES = (
