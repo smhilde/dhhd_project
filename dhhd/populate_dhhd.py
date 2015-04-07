@@ -37,6 +37,8 @@ def populate(file_name):
 	# distance_pattern = re.compile("^(?P<feet>\d+)\'-(?P<inches>\d+)\"")
 	distance_pattern = re.compile("^(?P<feet>\d+)[\'\"\-=]+(?P<inches>\d+)")
 	
+	rendering_files = os.listdir('./plan/static/plan/')
+	
 	with open(file_name, newline='') as plan_data_file:
 		planreader = csv.DictReader(plan_data_file)
 		for plan in planreader:
@@ -53,6 +55,8 @@ def populate(file_name):
 				if plan[key]:
 					features.append(feature_dict[key])
 			
+			make_active = plan['Elevation File'] in rendering_files and plan['Floor Plan File'] in rendering_files
+				
 			add_plan(
 				plan['Plan Number'],
 				area=int(plan['Sq. Ft.']),
@@ -67,7 +71,7 @@ def populate(file_name):
 				elevation_file=plan['Elevation File'],
 				floorplan_file=plan['Floor Plan File'],
 				planfeatures= features,
-				active=False,
+				active=make_active,
 			)
 				
 	for feature in SpecialFeature.objects.all():

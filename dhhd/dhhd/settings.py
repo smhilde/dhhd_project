@@ -112,5 +112,5 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
 	'django.core.context_processors.request',
 	)
-ENDLESS_PAGINATION_PER_PAGE = 9
+ENDLESS_PAGINATION_PER_PAGE = 15
 ENDLESS_PAGINATION_ORPHANS = 2

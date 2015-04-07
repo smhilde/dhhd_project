@@ -18,9 +18,9 @@ def index(request):
 		plan_list = None
 		if form.is_valid():
 			distance_pattern = re.compile("(?P<feet>\d+)\D+(?P<inches>\d+)")
-			plan_list = Plan.objects.all()
+			plan_list = Plan.objects.filter(active=True)
 			if form.cleaned_data.get('number'):
-				plan_list = Plan.objects.filter(number__exact=form.cleaned_data['number'])
+				plan_list = Plan.objects.filter(active=True).filter(number__exact=form.cleaned_data['number'])
 				return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list})
 			if form.cleaned_data.get('min_area'):
 				plan_list = plan_list.filter(area__gte=form.cleaned_data['min_area'])
@@ -86,7 +86,7 @@ def index(request):
 			plan_list = reformat_plan(plan_list)
 			plan_list = plan_list.order_by('area')
 	else:
-		plan_list = Plan.objects.all().order_by('area')
+		plan_list = Plan.objects.filter(active=True).order_by('area')
 		plan_list = reformat_plan(plan_list)
 		form = PlanForm()
 	return render(request, 'plan/results.html', {'form': form, 'plan_list': plan_list, 'feature_list': SpecialFeature.objects.all()})

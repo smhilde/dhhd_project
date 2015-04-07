@@ -14,9 +14,9 @@ def index(request):
 	# Retrieve the top 5 only - or all if less than 5.
 	# Place the list in the context_dict dictionary which will be passed to the template engine.
 	#popular_plan_list = Plan.objects.order_by('-views')[:3]
-	popular_plan_list = reformat_plan(Plan.objects.order_by('-views')[:3])
+	popular_plan_list = reformat_plan(Plan.objects.filter(active=True).order_by('-views')[:3])
 	# Most recent plans
-	recent_plan_list = reformat_plan(Plan.objects.order_by('-pub_date')[:3])
+	recent_plan_list = reformat_plan(Plan.objects.filter(active=True).order_by('-pub_date')[:3])
 	
 	context_dict = {'popular_plans': popular_plan_list, 'recent_plans': recent_plan_list}
 	return render(request, 'index.html', context_dict)
