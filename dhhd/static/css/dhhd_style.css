@@ -46,6 +46,7 @@ nav {
 	padding: 0;
 	margin-left: 0;
 	margin-bottom: 1em;
+    margin-top: 3em;
 	font-family: 'Josefin Sans', sans-serif;
 }
 nav li {
@@ -313,7 +314,7 @@ p.copyright {
 	text-align: center;;
 }
 
-.buy_plan button, .endless_page_link {
+.buy_plan button, .endless_page_link, button#likes {
 	width: 250px;
 	font-family: 'Josefin Sans', sans-serif;
 	font-size: 1.5em;
@@ -328,7 +329,7 @@ p.copyright {
 	background-image: linear-gradient(#ffffff, #dddddd);
 }
 
-.buy_plan button:hover, .endless_page_link:hover {
+.buy_plan button:hover, .endless_page_link:hover, button#likes:hover {
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
 	background-image: -webkit-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
 	background-image: -moz-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);

@@ -75,4 +75,7 @@ $(document).ready(function() {
     return false;
     
   }); // Form submission
+  
+  $('a.popup').popup();
+  
 }); // Document ready

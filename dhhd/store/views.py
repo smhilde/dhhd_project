@@ -73,3 +73,5 @@ def checkout(request):
 		
 	return render(request, 'store/checkout.html', {})
 
+def terms(request):
+	return render(request, 'store/terms.html', {})
