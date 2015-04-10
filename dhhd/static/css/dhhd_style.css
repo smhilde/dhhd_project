@@ -354,6 +354,14 @@ p.copyright {
 	border-color: #4A89AA;
 }
 
+.card-error-message {
+	background-color: rgba(252, 215, 215, 1);
+	border: 1px solid #FA0404;
+	color: #383838;
+	padding: 1.1em 0;
+	text-align: center;
+}
+
 .endless_page_link, .endless_page_current {
     padding: 0 12px 0 12px;
 }

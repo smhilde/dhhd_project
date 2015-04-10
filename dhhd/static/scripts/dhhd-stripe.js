@@ -45,6 +45,13 @@ $(document).ready(function() {
     var cvcNum = $('.card-cvc').val();
     var expMonth = $('.card-expiry-month').val();
     var expYear = $('.card-expiry-year').val();
+    var custName = $('#id_customer_name').val();
+    var addrLine1 = $('#id_address_line1').val();
+    var addrLine2 = $('#id_address_line2').val();
+    var addrCity = $('#id_address_city').val();
+    var addrState = $('#id_address_state').val();
+    var addrZip = $('#id_address_zip').val();
+    var addrCountry = $('#id_address_country').val();
     
     // Validate the number
     if (!Stripe.validateCardNumber(ccNum)) {
@@ -66,9 +73,21 @@ $(document).ready(function() {
     
     // Check for errors:
     if (!error) {
-    
       // Get the Stripe token
-      Stripe.card.createToken($form, stripeResponseHandler);
+      //Stripe.card.createToken($form, stripeResponseHandler);
+      Stripe.card.createToken({
+        number: ccNum,
+        cvc: cvcNum,
+        exp_month: expMonth,
+        exp_year: expYear,
+        name: custName,
+        address_line1: addrLine1,
+        address_line2: addrLine2,
+        address_city: addrCity,
+        address_state: addrState,
+        address_zip: addrZip,
+        address_country: addrCountry
+      }, stripeResponseHandler);
     }
 
     // Prevent the form from submitting with the default action
@@ -76,6 +95,6 @@ $(document).ready(function() {
     
   }); // Form submission
   
-  $('a.popup').popup();
+  // $('a.popup').popup();
   
 }); // Document ready

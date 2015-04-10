@@ -144,6 +144,12 @@
                     <label><span>I have read and agree to the <a href="{% url 'terms' %}" class="popup" target="_blank">Terms and Conditions</a> of this purchase.</span></label>
                   </div>
                   
+                  {% if err %}
+                  <div>
+                    <p class="card-error-message">{{ err.message }}</p>
+                  </div>
+                  {% endif %}
+                  
 				  <div class="buy_plan">
 					<button type="submit">Submit Payment</button>
 				  </div>

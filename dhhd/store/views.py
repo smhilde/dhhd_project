@@ -51,14 +51,21 @@ def checkout(request):
 		charge = stripe.Charge.create(
 			amount = charge_price, # amount in cents
 			currency = "usd",
-			card = token,
+			source = token,
 			description = ', '.join([request.POST['customer_name'], 'Plan ' + request.POST['plan_number']]),
+			statement_descriptor = 'Don Designs Plan ' + request.POST['plan_number'],
+			receipt_email = request.POST['receipt_email'],
 		)
 	except stripe.error.CardError as e:
+		# There was an error with the card
 		body = e.json_body
 		err = body.get('error')
-		# The card has been declined
+		if err.get('code') in ('card_declined', 'card_expired'):
+			err['message'] = err['message'] + ' Please try a different card.'
+		elif err.get('code') in ('incorrect_cvc', 'incorrect_zip', 'address_zip_check', 'address_line1_check'):
+			err['message'] = err['message'] + ' Please check the form and try again.'
 		context_dict = {}
+		context_dict['err'] = err
 		form = CartForm(request.POST)
 		context_dict['form'] = form
 		plan_list = Plan.objects.get(number=request.POST['plan_number'])
