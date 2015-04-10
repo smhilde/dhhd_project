@@ -156,7 +156,7 @@ section.featured {
 }
 .plan-block img {
 	/* display: block; */
-    max-width: 350px;
+    max-width: 100%;
     max-height: 225px;
     position: absolute;
     top: 0;
