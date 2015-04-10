@@ -144,6 +144,8 @@ section.featured {
 	margin-bottom: 1em;
 }
 .plan-block {
+    /* width: 373px; 
+    height: 400px; */
 	background: #002b40;
 	border: 1px solid #2a80b9;
 	margin-bottom: 1em;
@@ -153,8 +155,19 @@ section.featured {
 	background: #18536F;
 }
 .plan-block img {
-	display: block;
-	margin: 0.1em auto;
+	/* display: block; */
+    max-width: 350px;
+    max-height: 225px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	margin: auto;
+}
+.img-container {
+    height: 225px;
+    position: relative;
 }
 .plan-block span {
 	padding: 0.5em;
@@ -164,6 +177,9 @@ section.featured {
 }
 .plan-block a {
 	color: #fff;
+}
+.img {
+    height: 165px;
 }
 .img-rotator {
 	padding: 0.5em;
