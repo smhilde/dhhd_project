@@ -12,7 +12,27 @@
 <div class="grid-100 grid-parent">
 	<div class="grid-100">
 		<section class="featured outlined relative grid-100">
-			<h1>YAY!!!!!!!!!!</h1>
+			<h1>Thank You</h1>
+            <p>Thanks for your order. In the next few minutes, you'll receive an email confirming your order at {{ charge.receipt_email }}.</p>
+            <p> Your {{ charge.source.brand }} ending in {{charge.source.last4 }} has been charged {{ price }}.
+            The purchase will appear on your card statement as "{{ charge.statement_descriptor }}".</p>
+            <p>Please don't hesitate to <a href="mailto:orders@donhildebrandhomedesigns.com" target="_blank">contact us</a> with any questions.</p>
+            <h2>Order Summary</h2>
+            <p><strong>Plan {{ charge.metadata.plan_number }}</strong>: {{ plan_object.area }} Sq. Ft., {{ plan_object.bed }} {% if plan_object.bed == 1%}Bed{% else %}Beds{% endif %}, {{ plan_object.bath }} {% if plan_object.bath == 1%}Bath{% else %}Baths{% endif %}</p>
+            
+            <h2>Shipping Summary</h2>
+            <p>
+            {{ charge.source.name }}<br>
+            {{ charge.source.address_line1|title }}<br>
+            {% if charge.source.address_line2 %}
+            {{ charge.source.address_line2|title }}<br>
+            {% endif %}
+            {{ charge.source.address_city|title }}, {{ charge.source.address_state|title }}<br>
+            {{ charge.source.address_zip }}
+            </p>
+            
+            <p>Your plans will be shipped via {{ charge.metadata.shipping_method }}. They should arrive within 5 business days.</p>
+            
 		</section>
 	</div>
 </div>
