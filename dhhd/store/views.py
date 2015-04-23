@@ -14,7 +14,8 @@ from plan.models import Plan, SpecialFeature, UserProfile, User
 from store.forms import CartForm
 import plan.views
 
-stripe.api_key = "sk_test_MeEZRTb6IPCK7fd2Wf3YpOvQ"
+with open('/opt/dhhd/stripe_sk.txt', 'r') as f:
+	stripe.api_key = f.read().strip()
 
 def index(request):
 	return redirect('/store/cart')

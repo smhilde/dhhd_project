@@ -17,15 +17,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open('sk.txt') as f:
+with open('/opt/dhhd/dhhd_project/sk.txt') as f:
 	SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['hildebrew.pythonanywhere.com', 'donhildebrandhomedesigns.com', '127.0.0.1']
+ALLOWED_HOSTS = [
+	'.donhildebrandhomedesigns.com',
+	'127.0.0.1',
+]
 
 
 # Application definition
@@ -37,10 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'plan',
-	'store',
-	'registration',
-	'endless_pagination',
+    'plan',
+    'store',
+    'registration',
+    'endless_pagination',
 )
 
 MIDDLEWARE_CLASSES = (

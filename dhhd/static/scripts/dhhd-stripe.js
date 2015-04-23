@@ -1,4 +1,4 @@
-Stripe.setPublishableKey('pk_test_O7x17CwMK7CDj4tOzK0cSoJT');
+Stripe.setPublishableKey('pk_live_uAbkWSKJLrs04ETeXMELNv1I');
 
 function reportError(msg) {
     var $form = $('#payment-form');
